@@ -1,4 +1,4 @@
-
+```
  ██▓███   █    ██  ██▓███   ██▓███  ▓█████▄▄▄█████▓    ███▄ ▄███▓ ▄▄▄        ██████ ▄▄▄█████▓▓█████  ██▀███  
 ▓██░  ██▒ ██  ▓██▒▓██░  ██▒▓██░  ██▒▓█   ▀▓  ██▒ ▓▒   ▓██▒▀█▀ ██▒▒████▄    ▒██    ▒ ▓  ██▒ ▓▒▓█   ▀ ▓██ ▒ ██▒
 ▓██░ ██▓▒▓██  ▒██░▓██░ ██▓▒▓██░ ██▓▒▒███  ▒ ▓██░ ▒░   ▓██    ▓██░▒██  ▀█▄  ░ ▓██▄   ▒ ▓██░ ▒░▒███   ▓██ ░▄█ ▒
@@ -8,7 +8,8 @@
 ░▒ ░     ░░▒░ ░ ░ ░▒ ░     ░▒ ░      ░ ░  ░   ░       ░  ░      ░  ▒   ▒▒ ░░ ░▒  ░ ░    ░     ░ ░  ░  ░▒ ░ ▒░
 ░░        ░░░ ░ ░ ░░       ░░          ░    ░         ░      ░     ░   ▒   ░  ░  ░    ░         ░     ░░   ░ 
             ░                          ░  ░                  ░         ░  ░      ░              ░  ░   ░     
-                                                                                                             
+```
+                                                                                                       
 Created by :
 	GP   #  Alexandre SANCHES MATEUS
 	     -  Thomas RAULIN
@@ -20,14 +21,13 @@ Created by :
 	     -  Siméon ARTHAUD
 	PMJV #  Steeven ALHIM
 
-
-########################################################################################################
+```
     _  _     _     ___  ____  _____ 
   _| || |_  | |   / _ \|  _ \| ____|
  |_  ..  _| | |  | | | | |_) |  _|  
  |_      _| | |__| |_| |  _ <| |___ 
    |_||_|   |_____\___/|_| \_\_____|
-
+```
 
 Vous êtes un prestidigitateur ayant la faculté de contrôler les êtres humains à travers votre
 marionnette. Un jour, après votre performance, un spectateur ose vous huer et vous humilier. Il est
@@ -40,21 +40,26 @@ possibles grâce à l’environnement alentour.
 Votre vengeance est sur le point d'être assouvie. Après tout, vous connaissez les ficelle de la vie...
 
 
-########################################################################################################
+```
     _  _     ____   _    ____ _  __    _    ____ _____ 
   _| || |_  |  _ \ / \  / ___| |/ /   / \  / ___| ____|
  |_  ..  _| | |_) / _ \| |   | ' /   / _ \| |  _|  _|  
  |_      _| |  __/ ___ \ |___| . \  / ___ \ |_| | |___ 
    |_||_|   |_| /_/   \_\____|_|\_\/_/   \_\____|_____|
-                                                       
+```
 
+Commun :
+```
+URP                   - OK
 Cinemachine           - OK
-Nauthy Attribute      - OK
 input System          - OK
-
-Feel                  - OK
-DoTween               - OK
 VFX graph             - OK
 shader graph          - OK
+```
 
-URP                   - OK
+Specific :
+```
+Feel                  - OK
+DoTween               - OK
+Nauthy Attribute      - OK
+```
