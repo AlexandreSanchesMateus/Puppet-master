@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,27 +8,27 @@ public class PuppetPhysic : MonoBehaviour
 {
     [SerializeField, BoxGroup("Dependences")] private BalanceForce _balanceManager;
 
-    [SerializeField, BoxGroup("Down Force")] private Rigidbody _downRb;
-    [SerializeField, BoxGroup("Down Force")] private Transform _applyPoint;
-    [SerializeField, BoxGroup("Down Force")] private float _downForce;
+    [SerializeField, BoxGroup("Setup")] private Rigidbody _downRb;
+    [SerializeField, BoxGroup("Setup")] private Transform _applyPoint;
 
-    [SerializeField, BoxGroup("Suspension Settings")] private float _restLength;
-    [SerializeField, BoxGroup("Suspension Settings")] private float _springStiffness;
-    [SerializeField, BoxGroup("Suspension Settings")] private float _damperStiffness;
-    [SerializeField, BoxGroup("Suspension Settings")] private float _legLength;
-    [SerializeField, BoxGroup("Suspension Settings")] private float _minLength;
+    [SerializeField, BoxGroup("Settings")] private LayerMask _mask;
+    [SerializeField, BoxGroup("Settings")] private float _legLength;
+    [SerializeField, BoxGroup("Settings")] private float _downForce;
 
-    private float _lastLenght;
-    private float _springLength;
+    [SerializeField, BoxGroup("Settings")] private float _disableTime;
 
-    private bool _isGrounded;
+    [SerializeField, Foldout("Event")] private UnityEvent _onPuppetDisable;
+    [SerializeField, Foldout("Event")] private UnityEvent _onPuppetFullyRecover;
+    
+    private float _timer;
 
-    private EPuppetPhysic _state;
+    private EPuppetPhysic _state = EPuppetPhysic.NOT_GROUNDED;
 
     private enum EPuppetPhysic
     {
         STANDING,
         NOT_GROUNDED,
+        RECOVER,
         DISABLE,
     }
 
@@ -35,11 +36,7 @@ public class PuppetPhysic : MonoBehaviour
     {
         // Max extention leg
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, -transform.up);
-
-        // Rest lenght
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(-transform.up, 0.04f);
+        Gizmos.DrawLine(_applyPoint.position, _applyPoint.position + (Vector3.down * _legLength));
     }
 
     private void FixedUpdate()
@@ -47,33 +44,63 @@ public class PuppetPhysic : MonoBehaviour
         switch (_state)
         {
             case EPuppetPhysic.STANDING:
-                if (Physics.Raycast(gameObject.transform.position, -transform.up, out RaycastHit info, _legLength))
+                if (Physics.Raycast(_applyPoint.position, Vector3.down, _legLength, _mask))
                 {
-                    _lastLenght = _springLength;
-                    _springLength = Mathf.Clamp(info.distance, _minLength, _legLength);
-
-                    float springVelocity = (_lastLenght - _springLength) / Time.fixedDeltaTime;
-                    float springForce = _springStiffness * (_springLength - _restLength);
-                    float damperForce = _damperStiffness * springVelocity;
-
-                    Vector3 suspensionForce = (springForce + damperForce) * -transform.up;
-                    _downRb.AddForceAtPosition(suspensionForce, info.point);
-                    _isGrounded = true;
-
-                    Debug.DrawLine(gameObject.transform.position, info.point, Color.green);
+                    _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
+                    Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.green);
                 }
                 else
                 {
                     _state = EPuppetPhysic.NOT_GROUNDED;
                     _balanceManager.EnableBalance(false);
                 }
+
+                CheckBodyTilting();
                 break;
 
             case EPuppetPhysic.NOT_GROUNDED:
+                if (Physics.Raycast(_applyPoint.position, _applyPoint.right, _legLength, _mask))
+                {
+                    _state = EPuppetPhysic.STANDING;
+                    _balanceManager.EnableBalance(true);
+                }
+
+                Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.red);
+
+                CheckBodyTilting();
+                break;
+
+            case EPuppetPhysic.RECOVER:
+                if (Vector3.Dot(Vector3.up, -_applyPoint.right) > 0.5f)
+                {
+                    _state = EPuppetPhysic.STANDING;
+                    _onPuppetFullyRecover?.Invoke();
+                }
                 break;
 
             case EPuppetPhysic.DISABLE:
+                if(_downRb.velocity.magnitude <= 0.1f)
+                {
+                    _timer += Time.fixedDeltaTime;
+
+                    if (_timer >= _disableTime)
+                    {
+                        _state = EPuppetPhysic.RECOVER;
+                        _balanceManager.EnableBalance(true);
+                    }
+                }
                 break;
+        }
+    }
+
+    private void CheckBodyTilting()
+    {
+        if(Vector3.Dot(Vector3.up, -_applyPoint.right) <= 0.2f)
+        {
+            _state = EPuppetPhysic.DISABLE;
+            _balanceManager.EnableBalance(false);
+            _onPuppetDisable?.Invoke();
+            _timer = 0;
         }
     }
 }
