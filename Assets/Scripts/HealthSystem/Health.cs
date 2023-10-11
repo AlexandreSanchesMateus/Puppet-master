@@ -13,6 +13,7 @@ namespace Game
     {
         [SerializeField] private int _maxHealth;
 
+        public Entity Entity => _entityRef;
         [SerializeField] private Entity _entityRef;
 
         public event Action<int> OnDamage;

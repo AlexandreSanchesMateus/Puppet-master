@@ -18,6 +18,7 @@ namespace Game
         public Vector3 DefaultModelScale => _defaultModelScale;
         [SerializeField] private Vector3 _defaultModelScale;
 
-        
-    }
+		public Rigidbody Rigidbody => _rigidbody;
+		[SerializeField] private Rigidbody _rigidbody;
+	}
 }
