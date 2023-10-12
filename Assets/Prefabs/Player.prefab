@@ -120,6 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
+  m_minSpeedForDamage: 5
+  m_damageMultiply: 1
+  Score: 0
 --- !u!1 &1511563321719438988
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
+  m_minSpeedForDamage: 5
+  m_damageMultiply: 1
+  Score: 0
 --- !u!1 &2090410731741243269
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +624,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
+  m_minSpeedForDamage: 0.1
+  m_damageMultiply: 1
+  Score: 0
 --- !u!1 &6402460928775741297
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,3 +777,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
+  m_minSpeedForDamage: 5
+  m_damageMultiply: 1
+  Score: 0

@@ -20,5 +20,5 @@ namespace Game
 
 		public Rigidbody Rigidbody => _rigidbody;
 		[SerializeField] private Rigidbody _rigidbody;
-	}
+    }
 }
