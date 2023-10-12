@@ -14,12 +14,12 @@ public class PuppetPhysic : MonoBehaviour
     [SerializeField, BoxGroup("Settings")] private LayerMask _mask;
     [SerializeField, BoxGroup("Settings")] private float _legLength;
     [SerializeField, BoxGroup("Settings")] private float _downForce;
-
     [SerializeField, BoxGroup("Settings")] private float _disableTime;
 
     [SerializeField, Foldout("Event")] private UnityEvent _onPuppetDisable;
     [SerializeField, Foldout("Event")] private UnityEvent _onPuppetFullyRecover;
-    
+
+    public Vector2 Direction { get; set; } = Vector2.zero;
     private float _timer;
 
     private EPuppetPhysic _state = EPuppetPhysic.NOT_GROUNDED;
@@ -46,7 +46,7 @@ public class PuppetPhysic : MonoBehaviour
             case EPuppetPhysic.STANDING:
                 if (Physics.Raycast(_applyPoint.position, Vector3.down, _legLength, _mask))
                 {
-                    _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
+                    _downRb.AddForceAtPosition(Vector3.down * _downForce + (new Vector3(Direction.x, 0, Direction.y)), _applyPoint.position);
                     Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.green);
                 }
                 else
