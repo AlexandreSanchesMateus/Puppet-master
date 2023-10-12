@@ -699,11 +699,11 @@ Rigidbody:
   m_GameObject: {fileID: 219474925}
   serializedVersion: 4
   m_Mass: 12.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 10
+  m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 100, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4288,8 +4288,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   _legLength: 0.75
-  _downForce: 31
   _disableTime: 3
+  _downForce: 31
+  _turnForce: 200
   _onPuppetDisable:
     m_PersistentCalls:
       m_Calls: []
@@ -4324,9 +4325,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _puppetPhysic: {fileID: 1674412077}
-  _camera: {fileID: 947188313}
-  _movementSpeed: 100
-  _turnSpeed: 5
+  _camera: {fileID: 947188314}
+  _movementSpeed: 120
+  _turnSpeed: 13
   _detectionTurnTime: 1.5
   _stopInputTime: 1.2
 --- !u!1 &1701828251
