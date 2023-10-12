@@ -41,6 +41,7 @@ public class PuppetPhysic : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Mouvement
         switch (_state)
         {
             case EPuppetPhysic.STANDING:
@@ -62,6 +63,7 @@ public class PuppetPhysic : MonoBehaviour
                 if (Physics.Raycast(_applyPoint.position, _applyPoint.right, _legLength, _mask))
                 {
                     _state = EPuppetPhysic.STANDING;
+                    _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
                     _balanceManager.EnableBalance(true);
                 }
 
@@ -91,6 +93,9 @@ public class PuppetPhysic : MonoBehaviour
                 }
                 break;
         }
+
+        // Orientation
+
     }
 
     private void CheckBodyTilting()
