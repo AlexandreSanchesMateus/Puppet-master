@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PuppetInteraction : MonoBehaviour
 {
+
     public void SetRightArmAction(Vector2 value)
     {
 
