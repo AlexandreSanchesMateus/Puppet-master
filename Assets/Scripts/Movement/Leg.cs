@@ -5,7 +5,5 @@ using System.Collections.Generic;
 
 public class Leg : MonoBehaviour
 {
-    [SerializeField, Required] private Rigidbody _rb;
-
-   
+    
 }

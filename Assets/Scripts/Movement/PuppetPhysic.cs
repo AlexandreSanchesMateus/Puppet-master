@@ -70,12 +70,10 @@ public class PuppetPhysic : MonoBehaviour
                 if (Physics.Raycast(_applyPoint.position, _applyPoint.right, _legLength, _mask))
                 {
                     _state = EPuppetPhysic.STANDING;
-                    _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
                     _balanceManager.EnableBalance(true);
                 }
 
                 Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.red);
-
                 CheckBodyTilting();
                 break;
 
@@ -85,6 +83,7 @@ public class PuppetPhysic : MonoBehaviour
                     _state = EPuppetPhysic.STANDING;
                     _onPuppetFullyRecover?.Invoke();
                 }
+                _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
                 break;
 
             case EPuppetPhysic.DISABLE:
