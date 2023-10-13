@@ -16,8 +16,8 @@ namespace Game
 
 		public Vector3 DefaultModelScale { get; private set; }
 
-		[Header("Settings")] 
-		private int m_scoreGain;
+		[Header("Settings")]
+		[SerializeField] private int m_scoreGain;
 
 		protected void Awake()
 		{
@@ -48,7 +48,7 @@ namespace Game
 
 		protected void InflictFullDamageToPlayer()
 		{
-			m_playerReference.Instance.Health.TakeDamage(scoreGain);
+			m_playerReference.Instance.Health.TakeDamage(m_scoreGain);
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace Game
 		/// <param name="_damageSplit"></param>
 		protected void InflictSplitDamageToPlayer (int _damageSplit)
 		{
-			m_playerReference.Instance.Health.TakeDamage(scoreGain / _damageSplit);
+			m_playerReference.Instance.Health.TakeDamage(m_scoreGain / _damageSplit);
 		}
 	}
 }
