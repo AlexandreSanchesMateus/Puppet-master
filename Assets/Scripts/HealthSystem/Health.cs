@@ -11,16 +11,15 @@ namespace Game
 {
     public class Health : MonoBehaviour, IDamageable
     {
-        [SerializeField] private int _maxHealth;
+	    public event Action<int> OnDamage;
+	    public event Action OnDie;
 
         public Entity Entity => _entityRef;
         [SerializeField] private Entity _entityRef;
 
-        public event Action<int> OnDamage;
+        public float score;
 
-        public event Action OnDie;
-
-        public void TakeDamage(int amount)
+		public void TakeDamage(int amount)
         {
             Assert.IsTrue(amount >= 0);
 
