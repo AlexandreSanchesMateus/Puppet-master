@@ -25,7 +25,9 @@ namespace Game
 
             OnDamage?.Invoke(amount);
 
-            DamageEffect();
+            score += amount;
+
+			DamageEffect();
         }
         
         private void DamageEffect()
