@@ -7,6 +7,6 @@ namespace Game
 	public interface ITrap
 	{
 		public void Activate ();
-		public void Reset ();
+		public void ResetTrap ();
 	}
 }

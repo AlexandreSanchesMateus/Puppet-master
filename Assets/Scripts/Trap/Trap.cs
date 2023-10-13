@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 namespace Game
 {
-	public class Trap : MonoBehaviour, ITrap
+	public abstract class  Trap : MonoBehaviour, ITrap
 	{
 		public event Action onTrapDamage;
 
@@ -29,19 +29,19 @@ namespace Game
 			Init();
 		}
 
-		protected void Init ()
+		protected virtual void Init ()
 		{
 
 		}
 
-		public void Activate ()
+		public virtual void Activate ()
 		{
 			
 
 			onTrapDamage?.Invoke();
 		}
 
-		public void Reset ()
+		public virtual void ResetTrap ()
 		{
 			Init();
 		}
