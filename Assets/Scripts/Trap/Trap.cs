@@ -17,7 +17,7 @@ namespace Game
 		public Vector3 DefaultModelScale { get; private set; }
 
 		[Header("Settings")] 
-		private int scoreGain;
+		private int m_scoreGain;
 
 		protected void Awake()
 		{
