@@ -12,8 +12,6 @@ namespace Game
         private float m_minSpeedForDamage = 0.1f;
         [SerializeField] private float m_damageMultiply = 1f;
 
-		[SerializeField] private float Score;
-
 		private Rigidbody m_playerRigidbody => _target.Entity.Rigidbody;
 
         public void TakeDamage(int amount) => _target.TakeDamage(amount);
@@ -28,10 +26,9 @@ namespace Game
 			if (_collider.gameObject.layer != 6)
 				return;
 
-            Rigidbody _rb = null;
-            if (TryGetComponent(out _rb))
+            if (TryGetComponent(out Rigidbody rb))
             {
-                OnCollideWithRigidbody(_rb);
+                OnCollideWithRigidbody(rb);
             }
 			else
 			{
@@ -64,15 +61,15 @@ namespace Game
             float thisVelocity = m_playerRigidbody.velocity.magnitude;
             float otherVelocity = _rigidbody.velocity.magnitude;
 
-            CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1");
-            CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2");
+            _target.score += CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1");
+			_target.score += CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2");
         }
 
         private void OnCollideWithCollider(Collider _collider)
         {
             float relativeSpeed = m_playerRigidbody.velocity.magnitude;
 
-            CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider");
+			_target.score += CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider");
         }
 
         private float CalculateDamageBaseOnSpeed(float _relativeSpeed, string _name)
