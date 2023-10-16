@@ -11,7 +11,7 @@ namespace Game
     {
         public Health Health => _health;
         [SerializeField, Required()] protected Health _health;
-
+/*
         public GameObject Model => _model;
         [SerializeField] private GameObject _model;
 
@@ -19,6 +19,6 @@ namespace Game
         [SerializeField] private Vector3 _defaultModelScale;
 
 		public Rigidbody Rigidbody => _rigidbody;
-		[SerializeField] private Rigidbody _rigidbody;
+		[SerializeField] private Rigidbody _rigidbody;*/
     }
 }

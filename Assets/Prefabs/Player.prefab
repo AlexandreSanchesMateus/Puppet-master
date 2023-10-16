@@ -120,9 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
-  m_minSpeedForDamage: 5
+  m_limbRigidbody: {fileID: 0}
   m_damageMultiply: 1
-  Score: 0
 --- !u!1 &1511563321719438988
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,9 +241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
-  m_minSpeedForDamage: 5
+  m_limbRigidbody: {fileID: 0}
   m_damageMultiply: 1
-  Score: 0
 --- !u!1 &2090410731741243269
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,9 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 7987040929361276781}
-  _model: {fileID: 2782996434697823094}
-  _defaultModelScale: {x: 0, y: 0, z: 0}
-  _rigidbody: {fileID: 9132076140393988256}
 --- !u!114 &7987040929361276781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,8 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b69b09d4868112469e5ddd8ddfbaca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
   _entityRef: {fileID: 3599672427857209204}
+  score: 0
 --- !u!114 &7794631257289446626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +600,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -624,9 +619,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
-  m_minSpeedForDamage: 0.1
+  m_limbRigidbody: {fileID: 0}
   m_damageMultiply: 1
-  Score: 0
 --- !u!1 &6402460928775741297
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +771,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 7987040929361276781}
-  m_minSpeedForDamage: 5
+  m_limbRigidbody: {fileID: 0}
   m_damageMultiply: 1
-  Score: 0

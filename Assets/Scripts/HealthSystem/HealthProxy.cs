@@ -8,20 +8,14 @@ namespace Game
     public class HealthProxy : MonoBehaviour, IDamageable
     {
         [SerializeField, Required] Health _target;
+        [SerializeField] private Rigidbody m_limbRigidbody;
 
-        private float m_minSpeedForDamage = 0.1f;
         [SerializeField] private float m_damageMultiply = 1f;
-
-		private Rigidbody m_playerRigidbody => _target.Entity.Rigidbody;
+        private float m_minSpeedForDamage = 0.1f;
 
         public void TakeDamage(int amount) => _target.TakeDamage(amount);
 
-		private void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log("OnCollisionEnter");
-        }
-
-		private void OnTriggerEnter(Collider _collider)
+		private void OnCollisionEnter(Collision _collider)
 		{
 			if (_collider.gameObject.layer != 6)
 				return;
@@ -32,7 +26,7 @@ namespace Game
             }
 			else
 			{
-                OnCollideWithCollider(_collider);
+                OnCollideWithCollider(_collider.collider);
             }
 
             /*float thisVelocity = m_playerRigidbody.velocity.magnitude;
@@ -58,7 +52,7 @@ namespace Game
 
 		private void OnCollideWithRigidbody(Rigidbody _rigidbody)
 		{
-            float thisVelocity = m_playerRigidbody.velocity.magnitude;
+            float thisVelocity = m_limbRigidbody.velocity.magnitude;
             float otherVelocity = _rigidbody.velocity.magnitude;
 
             _target.score += CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1");
@@ -67,8 +61,7 @@ namespace Game
 
         private void OnCollideWithCollider(Collider _collider)
         {
-            float relativeSpeed = m_playerRigidbody.velocity.magnitude;
-
+            float relativeSpeed = m_limbRigidbody.velocity.magnitude;
 			_target.score += CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider");
         }
 

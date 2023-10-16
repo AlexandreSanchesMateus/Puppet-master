@@ -31,6 +31,13 @@ public class PlayerBrain : MonoBehaviour
 
         _rightArm.action.performed += RightArmAction;
         _rightArm.action.canceled += RightArmStop;
+
+        // Hand
+        _rightHand.action.performed += RightHandInteraction;
+        _rightHand.action.canceled += RightHandStop;
+
+        _leftHand.action.performed += LeftHandInteraction;
+        _leftHand.action.canceled += LeftHandStop;
     }
 
     private void OnDestroy()
@@ -48,6 +55,13 @@ public class PlayerBrain : MonoBehaviour
 
         _rightArm.action.performed -= RightArmAction;
         _rightArm.action.canceled -= RightArmStop;
+
+        // Hand
+        _rightHand.action.performed -= RightHandInteraction;
+        _rightHand.action.canceled -= RightHandStop;
+
+        _leftHand.action.performed -= LeftHandInteraction;
+        _leftHand.action.canceled -= LeftHandStop;
     }
 
     // Leg
@@ -65,4 +79,9 @@ public class PlayerBrain : MonoBehaviour
     private void RightArmStop(InputAction.CallbackContext callback) => _puppetInteraction.SetRightArmAction(Vector2.zero);
 
     // Hand
+    private void RightHandInteraction(InputAction.CallbackContext callback) => _puppetInteraction.SetRightHandInteraction(true);
+    private void LeftHandInteraction(InputAction.CallbackContext callback) => _puppetInteraction.SetLeftHandInteraction(true);
+
+    private void RightHandStop(InputAction.CallbackContext callback) => _puppetInteraction.SetRightHandInteraction(false);
+    private void LeftHandStop(InputAction.CallbackContext callback) => _puppetInteraction.SetLeftHandInteraction(false);
 }

@@ -21,6 +21,7 @@ public class PuppetInteraction : MonoBehaviour
         public Rigidbody rb;
         public Transform handPos;
         public Transform clavicle;
+        public Hand interaction;
 
         [field: SerializeField] public Vector3 IdleOffset { get; private set; }
         [field: SerializeField] public Vector3 ForwardOffset { get; private set; }
@@ -91,6 +92,30 @@ public class PuppetInteraction : MonoBehaviour
     {
         _LHandData.SetHandPosition(ConvertInHandPos(value));
         _onHandPositionChange?.Invoke();
+    }
+
+    public void SetLeftHandInteraction(bool interact)
+    {
+        if (interact)
+        {
+            _LHandData.interaction.TakeObject();
+        }
+        else
+        {
+            _LHandData.interaction.ReleaseObject();
+        }
+    }
+
+    public void SetRightHandInteraction(bool interact)
+    {
+        if (interact)
+        {
+            _RHandData.interaction.TakeObject();
+        }
+        else
+        {
+            _RHandData.interaction.ReleaseObject();
+        }
     }
 
     private HandData.EHandPosition ConvertInHandPos(Vector2 direction)
