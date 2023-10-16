@@ -17,7 +17,7 @@ public class BearTrap : Trap
     void Start()
     {
         
-        BaseSate();
+        BaseState();
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class BearTrap : Trap
         
     }
 
-    private void BaseSate()
+    private void BaseState()
     {
         _camera.gameObject.SetActive(false);
     }
@@ -35,12 +35,12 @@ public class BearTrap : Trap
         Activate();
     }
     [Button]
-    private void  Activate()
+    private void Activate()
     {
         _camera.gameObject.SetActive(true);
         Sequence mySequence = DOTween.Sequence();
         mySequence.AppendInterval(0.2f);
         mySequence.Append(_firstPart.DOLocalRotate(new Vector3(0, 0, 90),0.20f,RotateMode.Fast));
-        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> OnClose.Invoke()));
+        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> OnClose.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
     }
 }
