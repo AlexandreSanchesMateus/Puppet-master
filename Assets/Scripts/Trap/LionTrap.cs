@@ -12,16 +12,6 @@ public class LionTrap : Trap
     [SerializeField] private CinemachineVirtualCamera _camera;
     public UnityEvent OnActivate;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         Activate();
@@ -33,5 +23,6 @@ public class LionTrap : Trap
         _camera.gameObject.SetActive(true);
         OnActivate.Invoke();
         Debug.Log("activate");
+        InflictFullDamageToPlayer();
     }
 }
