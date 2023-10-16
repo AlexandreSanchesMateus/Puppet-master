@@ -7,23 +7,17 @@ public class Leg : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _impulseForce;
-    [SerializeField, Dropdown("GetVectorValues")] private Vector3 _direction;
+    [SerializeField] private float _aroundRange;
 
-    private DropdownList<Vector3> GetVectorValues()
+    public void AddImpulse(Vector3 direction, bool reverse)
     {
-        return new DropdownList<Vector3>()
-        {
-            { "Right",   Vector3.right },
-            { "Left",    Vector3.left },
-            { "Up",      Vector3.up },
-            { "Down",    Vector3.down },
-            { "Forward", Vector3.forward },
-            { "Back",    Vector3.back }
-        };
-    }
+        float angle = Vector2.SignedAngle(new Vector2(direction.x, direction.z), Vector2.up);
+        float random = Random.Range(angle - _aroundRange, angle + _aroundRange);
+        Vector2 result = new Vector2(Mathf.Cos(random), Mathf.Sin(random));
 
-    public void AddImpulseForward()
-    {
-        _rb.AddForceAtPosition(_direction * _impulseForce, transform.position, ForceMode.Impulse);
+        if (reverse)
+            _rb.AddForceAtPosition(result * _impulseForce, transform.position, ForceMode.Impulse);
+        else    
+            _rb.AddForceAtPosition(result * _impulseForce, transform.position, ForceMode.Impulse);
     }
 }
