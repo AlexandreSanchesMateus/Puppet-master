@@ -15,9 +15,10 @@ namespace Game
 		[SerializeField] private GameObject m_model;
 
 		public Vector3 DefaultModelScale { get; private set; }
+		protected bool m_isTrapActive;
 
-		[Header("Settings")]
-		[SerializeField] private int m_scoreGain;
+		[SerializeField, BoxGroup("Settings")] protected int m_scoreGain;
+		[SerializeField, BoxGroup("Settings")] protected int m_scoreLeftToGain;
 
 		protected void Awake()
 		{
@@ -31,7 +32,7 @@ namespace Game
 
 		protected virtual void Init ()
 		{
-
+			m_scoreLeftToGain = m_scoreGain;
 		}
 
 		public virtual void Activate ()
@@ -43,21 +44,35 @@ namespace Game
 
 		public virtual void ResetTrap ()
 		{
+			m_isTrapActive = true;
 			Init();
 		}
 
 		protected void InflictFullDamageToPlayer()
 		{
 			m_playerReference.Instance.Health.TakeDamage(m_scoreGain);
+
+			m_scoreLeftToGain -= m_scoreGain;
 		}
 
 		/// <summary>
 		/// Call this function to inflict the full damage split on different tick.
 		/// </summary>
-		/// <param name="_damageSplit"></param>
-		protected void InflictSplitDamageToPlayer (int _damageSplit)
+		/// <param name="_damageSplitBy"></param>
+		protected void InflictSplitDamageToPlayer (int _damageSplitBy)
 		{
-			m_playerReference.Instance.Health.TakeDamage(m_scoreGain / _damageSplit);
+			float damageToDo = (float)m_scoreGain / _damageSplitBy;
+
+			if (damageToDo > m_scoreLeftToGain)
+			{
+				m_playerReference.Instance.Health.TakeDamage(m_scoreLeftToGain);
+				m_scoreLeftToGain -= m_scoreLeftToGain;
+			}
+			else
+			{
+				m_playerReference.Instance.Health.TakeDamage((int)damageToDo);
+				m_scoreLeftToGain -= (int)damageToDo;
+			}
 		}
 	}
 }

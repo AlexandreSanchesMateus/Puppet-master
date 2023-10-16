@@ -17,6 +17,8 @@ namespace Game
 
 		private void OnCollisionEnter(Collision _collider)
 		{
+			return;
+
 			if (_collider.gameObject.layer != 6)
 				return;
 
@@ -72,7 +74,7 @@ namespace Game
 
             float damages = _relativeSpeed * m_damageMultiply;
 
-            Debug.Log(_name + damages);
+            //Debug.Log(_name + damages);
 
             return damages;
         }
