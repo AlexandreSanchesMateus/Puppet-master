@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f796174aadb4ff459b51c4988ceaaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _snapForce: 10
+  _snapForce: 13
   _LHandData:
     rb: {fileID: 1577407945024796574}
     clavicle: {fileID: 4114156152793644403}
@@ -237,7 +237,7 @@ MonoBehaviour:
     <IdleOffset>k__BackingField: {x: 0.04, y: 0.4, z: 0.2}
     <ForwardOffset>k__BackingField: {x: 0.46, y: 0.1, z: 0.07}
     <BackwardOffset>k__BackingField: {x: -0.3, y: 0.36, z: 0}
-    <UpwardOffset>k__BackingField: {x: 0, y: 0.05, z: -0.45}
+    <UpwardOffset>k__BackingField: {x: 0.13, y: 0.13, z: -0.45}
     <DownwardOffset>k__BackingField: {x: 0, y: 0.22, z: 0.46}
   _RHandData:
     rb: {fileID: 3667965546397661609}
@@ -246,7 +246,7 @@ MonoBehaviour:
     <IdleOffset>k__BackingField: {x: -0.04, y: 0.4, z: 0.2}
     <ForwardOffset>k__BackingField: {x: -0.46, y: 0.1, z: 0.07}
     <BackwardOffset>k__BackingField: {x: 0.3, y: 0.36, z: 0}
-    <UpwardOffset>k__BackingField: {x: 0, y: 0.05, z: -0.45}
+    <UpwardOffset>k__BackingField: {x: -0.13, y: 0.13, z: -0.45}
     <DownwardOffset>k__BackingField: {x: 0, y: 0.22, z: 0.46}
   _onHandPositionChange:
     m_PersistentCalls:
@@ -274,7 +274,7 @@ MonoBehaviour:
   _legLength: 0.75
   _disableTime: 3
   _downForce: 31
-  _turnForce: 200
+  _turnForce: 180
   _onPuppetDisable:
     m_PersistentCalls:
       m_Calls: []
@@ -682,8 +682,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907172020675243197}
   serializedVersion: 4
-  m_Mass: 0.1
-  m_Drag: 3
+  m_Mass: 0.2
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2231,8 +2231,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3280202942716872872}
   serializedVersion: 4
-  m_Mass: 0.1
-  m_Drag: 3
+  m_Mass: 0.2
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

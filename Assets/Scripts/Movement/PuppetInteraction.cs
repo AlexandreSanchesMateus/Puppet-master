@@ -11,7 +11,8 @@ public class PuppetInteraction : MonoBehaviour
     [SerializeField, BoxGroup] private HandData _LHandData;
     [SerializeField, BoxGroup] private HandData _RHandData;
 
-    [SerializeField, Foldout("Events")] private UnityEvent _onHandPositionChange;
+    [SerializeField, Foldout("Events")] private UnityEvent _onRightHandChange;
+    [SerializeField, Foldout("Events")] private UnityEvent _onLeftHandChange;
 
     private bool _enable = true;
 
@@ -22,6 +23,8 @@ public class PuppetInteraction : MonoBehaviour
         public Transform clavicle;
         public Hand interaction;
         public Vector3 handPos => interaction.gameObject.transform.position;
+
+        private Vector2 lastHandPosition = Vector2.zero;
 
         [field: SerializeField] public Vector3 IdleOffset { get; private set; }
         [field: SerializeField] public Vector3 ForwardOffset { get; private set; }
@@ -40,7 +43,44 @@ public class PuppetInteraction : MonoBehaviour
             DOWNWARD
         }
 
-        public void SetHandPosition(EHandPosition pos) => HandState = pos;
+        public void SetHandPosition(Vector2 pos)
+        {
+            Vector2 inputChange = new Vector2(Mathf.Abs(pos.x - lastHandPosition.x), Mathf.Abs(pos.y - lastHandPosition.y));
+            lastHandPosition = pos;
+
+            if (inputChange.x > 0.5f)
+            {
+                if (pos.x < 0)
+                    HandState = EHandPosition.FORWARD;
+                else if (pos.x > 0)
+                    HandState = EHandPosition.BACKWARD;
+                else
+                {
+                    if (pos.y < 0)
+                        HandState = EHandPosition.DOWNWARD;
+                    else if (pos.y > 0)
+                        HandState = EHandPosition.UPWARD;
+                    else
+                        HandState = EHandPosition.IDLE;
+                }
+            }
+            else if (inputChange.y > 0.5f)
+            {
+                if (pos.y < 0)
+                    HandState = EHandPosition.DOWNWARD;
+                else if (pos.y > 0)
+                    HandState = EHandPosition.UPWARD;
+                else
+                {
+                    if (pos.x < 0)
+                        HandState = EHandPosition.FORWARD;
+                    else if (pos.x > 0)
+                        HandState = EHandPosition.BACKWARD;
+                    else
+                        HandState = EHandPosition.IDLE;
+                }
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -84,14 +124,14 @@ public class PuppetInteraction : MonoBehaviour
 
     public void SetRightArmAction(Vector2 value)
     {
-        _RHandData.SetHandPosition(ConvertInHandPos(value));
-        _onHandPositionChange?.Invoke();
+        _RHandData.SetHandPosition(value);
+        _onRightHandChange?.Invoke();
     }
 
     public void SetLeftArmAction(Vector2 value)
     {
-        _LHandData.SetHandPosition(ConvertInHandPos(value));
-        _onHandPositionChange?.Invoke();
+        _LHandData.SetHandPosition(value);
+        _onLeftHandChange?.Invoke();
     }
 
     public void SetLeftHandInteraction(bool interact)
@@ -116,20 +156,6 @@ public class PuppetInteraction : MonoBehaviour
         {
             _RHandData.interaction.ReleaseObject();
         }
-    }
-
-    private HandData.EHandPosition ConvertInHandPos(Vector2 direction)
-    {
-        if (direction == Vector2.up)
-            return HandData.EHandPosition.UPWARD;
-        else if (direction == Vector2.down)
-            return HandData.EHandPosition.DOWNWARD;
-        else if (direction == Vector2.left)
-            return HandData.EHandPosition.FORWARD;
-        else if (direction == Vector2.right)
-            return HandData.EHandPosition.BACKWARD;
-
-        return HandData.EHandPosition.IDLE;
     }
 
     private void UpdateHandPosition(HandData info)
@@ -158,5 +184,18 @@ public class PuppetInteraction : MonoBehaviour
         info.rb.AddForceAtPosition((target - info.handPos) * _snapForce, info.handPos);
     }
 
-    public void EnableleInteraction(bool enable) => _enable = enable;
+    public void EnableleInteraction(bool enable)
+    {
+        _enable = enable;
+        if(_enable)
+        {
+            _LHandData.rb.useGravity = false;
+            _RHandData.rb.useGravity = false;
+        }
+        else
+        {
+            _LHandData.rb.useGravity = true;
+            _RHandData.rb.useGravity = true;
+        }
+    }
 }
