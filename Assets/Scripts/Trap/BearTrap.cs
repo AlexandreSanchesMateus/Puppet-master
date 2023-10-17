@@ -32,7 +32,8 @@ public class BearTrap : Trap
     }
     private void OnTriggerEnter(Collider other)
     {
-        Activate();
+        if (other.gameObject.CompareTag("Player"))
+            Activate();
     }
     [Button]
     private void Activate()
