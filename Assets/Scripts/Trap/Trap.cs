@@ -20,7 +20,7 @@ namespace Game
 		[SerializeField, BoxGroup("Settings")] protected int m_scoreGain;
 		[SerializeField, BoxGroup("Settings")] protected int m_scoreLeftToGain;
 
-		protected void Awake()
+		protected virtual void Awake()
 		{
 			DefaultModelScale = m_model.transform.localScale;
 		}
@@ -44,7 +44,6 @@ namespace Game
 
 		public virtual void ResetTrap ()
 		{
-			m_isTrapActive = true;
 			Init();
 		}
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4394683331587566629}
   - component: {fileID: 4699921313585271791}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 3038434922252783887}
   - component: {fileID: 2942244987307216193}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,6 +210,84 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2271579754119464178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3358738637456860623}
+  - component: {fileID: 9185955749179259932}
+  - component: {fileID: 7136429394351681930}
+  m_Layer: 0
+  m_Name: FlammeZoneCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3358738637456860623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271579754119464178}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6269453133685333379}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &9185955749179259932
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271579754119464178}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6698296
+  m_Center: {x: 0.008087158, y: 0, z: -0.0053913593}
+--- !u!114 &7136429394351681930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271579754119464178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f79572cb95181044b9b124d406c5051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  _onTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  _onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCollisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3669409595128712669
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,10 +332,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6269453133685333379}
-  - component: {fileID: 5342616683757660272}
-  - component: {fileID: 924550256324446099}
-  m_Layer: 7
-  m_Name: FlammeZone
+  m_Layer: 0
+  m_Name: FlammeZoneHolder
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -272,58 +348,14 @@ Transform:
   m_GameObject: {fileID: 4260027645715776135}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.193, y: 0, z: -0.086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6826899984388079374}
+  - {fileID: 3358738637456860623}
   m_Father: {fileID: 7237203694002084399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5342616683757660272
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4260027645715776135}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.6698296
-  m_Center: {x: 0.008087158, y: 0, z: -0.0053913593}
---- !u!114 &924550256324446099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4260027645715776135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f79572cb95181044b9b124d406c5051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  _onTriggerExit:
-    m_PersistentCalls:
-      m_Calls: []
-  _onTriggerStay:
-    m_PersistentCalls:
-      m_Calls: []
-  _onCollisionEnter:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &4920666823098572431
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +369,7 @@ GameObject:
   - component: {fileID: 841913039662421476}
   - component: {fileID: 1917656010285126219}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,7 +470,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6826899984388079374}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FXs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +506,7 @@ GameObject:
   - component: {fileID: 4817403152953455503}
   - component: {fileID: 235968828083661814}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,10 +785,16 @@ MonoBehaviour:
   m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
   m_model: {fileID: 4556276919290654122}
   m_scoreGain: 3000
+  m_scoreLeftToGain: 0
   m_flameToActivate: {fileID: 4260027645715776135}
   m_fallingLamp: {fileID: 3669409595128712669}
-  m_physics3DInteraction: {fileID: 924550256324446099}
+  m_physics3DInteraction: {fileID: 7136429394351681930}
   m_lampFallDuration: 1.5
+  m_timeBetweenTickDefault: 1
+  m_timeBetweenTick: 0
+  m_fireDurationLeftDefault: 6
+  m_fireDurationLeft: 6
+  m_isPlayerInFire: 0
 --- !u!4 &7237203694002084399 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,

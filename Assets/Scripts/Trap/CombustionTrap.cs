@@ -5,59 +5,100 @@ using Game;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public class CombustionTrap : Trap, ICutable
 {
-
 	[SerializeField, BoxGroup("References")] private GameObject m_flameToActivate;
 	[SerializeField, BoxGroup("References")] private GameObject m_fallingLamp;
 	[SerializeField, BoxGroup("References")] private Physics3DInteraction m_physics3DInteraction;
 
 	[SerializeField, BoxGroup("Settings")] private float m_lampFallDuration = 1.5f;
+	[SerializeField, BoxGroup("Settings")] private float m_timeBetweenTickDefault = 1f;
+	[SerializeField, BoxGroup("Settings"), ReadOnly] private float m_timeBetweenTick = 0;
+	[SerializeField, BoxGroup("Settings")] private float m_fireDurationLeftDefault = 6f;
+	[SerializeField, BoxGroup("Settings"), ReadOnly] private float m_fireDurationLeft = 6f;
+	[SerializeField, BoxGroup("Settings")] private bool m_isPlayerInFire;
 
-	private Coroutine m_flameCoroutine;
-	private WaitForSeconds m_delayBetweenFireTick = new WaitForSeconds(1f);
+	private Vector3 m_fallingLampBasePos;
+
+	protected override void Awake()
+	{
+		m_fallingLampBasePos = m_fallingLamp.transform.position;
+	}
 
 	protected override void Start()
 	{
 		base.Start();
 
-		m_flameToActivate.SetActive(false);
-
-		m_physics3DInteraction.TriggerEnter3D += StartFireDamage;
-		m_physics3DInteraction.TriggerExit3D -= StartFireDamage;
+		m_physics3DInteraction.TriggerStay3D += (x) =>
+		{
+			if (x.gameObject.layer == 6)
+			{
+				m_isPlayerInFire = true;
+			}
+		};
 
 		m_physics3DInteraction.TriggerExit3D += StopFireDamage;
 	}
 
-	public void StartFireDamage(Collider _collider)
+	protected override void Init()
 	{
-		m_flameCoroutine = StartCoroutine(FireDamage());
+		base.Init();
+
+		m_fallingLamp.transform.position = m_fallingLampBasePos;
+
+		if (!m_fallingLamp.gameObject.activeSelf) m_fallingLamp.gameObject.SetActive(true);
+		m_flameToActivate.SetActive(false);
+
+		m_fireDurationLeft = m_fireDurationLeftDefault;
+
+		m_isPlayerInFire = false;
 	}
 
-	private void StopFireDamage ( Collider _collider )
+	private void StopFireDamage ( Collider _collider)
 	{
-		StopCoroutine(m_flameCoroutine);
-	}
-
-	// Will stop either by "Player exit" or by "m_scoreLeftToGain is 0"
-	private IEnumerator FireDamage()
-	{
-		// maybe will stop when all score hit
-		InflictSplitDamageToPlayer(10);
-
-		FireDamageFxs();
-
-		yield return m_delayBetweenFireTick;
-
-		if (m_scoreLeftToGain > 0)
+		if (_collider.gameObject.layer == 6)
 		{
-			m_flameCoroutine = StartCoroutine(FireDamage());
+			m_isPlayerInFire = false;
+		}
+	}
+
+	private void Update()
+	{
+		if (!m_isTrapActive)
+			return;
+
+		if (m_fireDurationLeft <= 0)
+		{
+			ResetTrap();
+			return;
+		}
+		m_fireDurationLeft -= Time.deltaTime;
+
+		if (!m_isPlayerInFire)
+			return;
+
+		if (m_timeBetweenTick > 0)
+		{
+			m_timeBetweenTick -= Time.deltaTime;
 		}
 		else
 		{
-			m_physics3DInteraction.TriggerExit3D -= StopFireDamage;
+			InflictSplitDamageToPlayer(10);
+
+			FireDamageFxs();
+
+			m_timeBetweenTick = m_timeBetweenTickDefault;
 		}
+	}
+
+	public override void ResetTrap()
+	{
+		base.ResetTrap();
+
+		m_isTrapActive = false;
+		m_timeBetweenTick = 0;
 	}
 
 	private void FireDamageFxs()
@@ -77,6 +118,8 @@ public class CombustionTrap : Trap, ICutable
 			{
 				m_fallingLamp.gameObject.SetActive(false);
 				m_flameToActivate.SetActive(true);
+
+				m_isTrapActive = true;
 			});
 	}
 }
