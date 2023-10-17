@@ -19,9 +19,9 @@ public class PuppetInteraction : MonoBehaviour
     private class HandData
     {
         public Rigidbody rb;
-        public Transform handPos;
         public Transform clavicle;
         public Hand interaction;
+        public Vector3 handPos => interaction.gameObject.transform.position;
 
         [field: SerializeField] public Vector3 IdleOffset { get; private set; }
         [field: SerializeField] public Vector3 ForwardOffset { get; private set; }
@@ -48,29 +48,29 @@ public class PuppetInteraction : MonoBehaviour
         if(_RHandData.clavicle != null)
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawSphere(_RHandData.clavicle.position + _RHandData.IdleOffset, 0.05f);
+            Gizmos.DrawSphere(_RHandData.clavicle.position + (_RHandData.clavicle.rotation * _RHandData.IdleOffset), 0.05f);
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_RHandData.clavicle.position + _RHandData.ForwardOffset, 0.05f);
+            Gizmos.DrawSphere(_RHandData.clavicle.position + (_RHandData.clavicle.rotation * _RHandData.ForwardOffset), 0.05f);
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_RHandData.clavicle.position + _RHandData.BackwardOffset, 0.05f);
+            Gizmos.DrawSphere(_RHandData.clavicle.position + (_RHandData.clavicle.rotation * _RHandData.BackwardOffset), 0.05f);
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_RHandData.clavicle.position + _RHandData.UpwardOffset, 0.05f);
+            Gizmos.DrawSphere(_RHandData.clavicle.position + (_RHandData.clavicle.rotation * _RHandData.UpwardOffset), 0.05f);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(_RHandData.clavicle.position + _RHandData.DownwardOffset, 0.05f);
+            Gizmos.DrawSphere(_RHandData.clavicle.position + (_RHandData.clavicle.rotation * _RHandData.DownwardOffset), 0.05f);
         }
 
         if(_LHandData.clavicle != null)
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawSphere(_LHandData.clavicle.position + _LHandData.IdleOffset, 0.05f);
+            Gizmos.DrawSphere(_LHandData.clavicle.position + (_LHandData.clavicle.rotation * _LHandData.IdleOffset), 0.05f);
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_LHandData.clavicle.position + _LHandData.ForwardOffset, 0.05f);
+            Gizmos.DrawSphere( _LHandData.clavicle.position + (_LHandData.clavicle.rotation * _LHandData.ForwardOffset), 0.05f);
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_LHandData.clavicle.position + _LHandData.BackwardOffset, 0.05f);
+            Gizmos.DrawSphere(_LHandData.clavicle.position + (_LHandData.clavicle.rotation * _LHandData.BackwardOffset), 0.05f);
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_LHandData.clavicle.position + _LHandData.UpwardOffset, 0.05f);
+            Gizmos.DrawSphere(_LHandData.clavicle.position + (_LHandData.clavicle.rotation * _LHandData.UpwardOffset), 0.05f);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(_LHandData.clavicle.position + _LHandData.DownwardOffset, 0.05f);
+            Gizmos.DrawSphere( _LHandData.clavicle.position + (_LHandData.clavicle.rotation * _LHandData.DownwardOffset), 0.05f);
         }
     }
 
@@ -134,29 +134,29 @@ public class PuppetInteraction : MonoBehaviour
 
     private void UpdateHandPosition(HandData info)
     {
-        Vector3 target = info.clavicle.position + info.IdleOffset;
+        Vector3 target = info.clavicle.position + (info.clavicle.rotation * info.IdleOffset);
         switch (info.HandState)
         {
             case HandData.EHandPosition.FORWARD:
-                target = info.clavicle.position + info.ForwardOffset;
+                target = info.clavicle.position + (info.clavicle.rotation * info.ForwardOffset);
                 break;
 
             case HandData.EHandPosition.BACKWARD:
-                target = info.clavicle.position + info.BackwardOffset;
+                target = info.clavicle.position + (info.clavicle.rotation * info.BackwardOffset);
                 break;
 
             case HandData.EHandPosition.UPWARD:
-                target = info.clavicle.position + info.UpwardOffset;
+                target = info.clavicle.position + (info.clavicle.rotation * info.UpwardOffset);
                 break;
 
             case HandData.EHandPosition.DOWNWARD:
-                target = info.clavicle.position + info.DownwardOffset;
+                target = info.clavicle.position + (info.clavicle.rotation * info.DownwardOffset);
                 break;
         }
 
-        Debug.DrawRay(info.handPos.position, target - info.handPos.position, Color.cyan);
-        info.rb.AddForceAtPosition(target - info.handPos.position * _snapForce, info.handPos.position);
+        Debug.DrawRay(info.handPos, target - info.handPos, Color.cyan);
+        info.rb.AddForceAtPosition((target - info.handPos) * _snapForce, info.handPos);
     }
 
-    public void DisablleInteraction(bool enable) => _enable = enable;
+    public void EnableleInteraction(bool enable) => _enable = enable;
 }
