@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702570b4f3db51e47a4be4e5ccfbc97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerReference: {fileID: 0}
+  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
   m_model: {fileID: 0}
   m_scoreGain: 0
   _camera: {fileID: 2038780379142371289}
