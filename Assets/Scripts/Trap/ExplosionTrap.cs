@@ -9,44 +9,74 @@ public class EnclumeTrap : Trap
 {
     [SerializeField, BoxGroup("Settings")] private float _explosionDelay;
     [SerializeField, BoxGroup("Settings")] private float _explosionForce;
-    [SerializeField, BoxGroup("Settings")] private LayerMask _layer;
+    [SerializeField, BoxGroup("Settings")] private Physics3DInteraction _interaction;
     [SerializeField, BoxGroup("Settings")] private float _activeRadius;
-    [SerializeField, BoxGroup("Settings")] private float _explosionRadius;
 
     [SerializeField, Foldout("Events")] private UnityEvent _onTrapIgnition;
-    private bool _isIgnited;
+    
+    HashSet<Collider> _collidersIn = new HashSet<Collider>();
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.2f);
-        Gizmos.DrawSphere(transform.position, _explosionRadius);
-
-        Gizmos.color = new Color(0, 0, 0, 0.2f);
-        Gizmos.DrawSphere(transform.position, _activeRadius);
+        if (_interaction != null)
+        {
+            Gizmos.color = new Color(0, 0, 0, 0.2f);
+            Gizmos.DrawSphere(_interaction.transform.position, _activeRadius);
+        }
     }
 
-    /*private void Update()
+    protected override void Start()
     {
-        if((m_playerReference.Instance.transform.position - transform.position).magnitude <= _activeRadius&& !_isIgnited)
+        m_isTrapActive = true;
+
+        _interaction.TriggerEnter3D += AddObject;
+        _interaction.TriggerExit3D += RemoveObject;
+    }
+
+    private void Update()
+    {
+        if (!m_isTrapActive) return;
+
+        foreach(Collider info in _collidersIn)
         {
-            _onTrapIgnition?.Invoke();
-            Invoke(nameof(Activate), _explosionDelay);
-            _isIgnited = true;
+            if((info.transform.position - _interaction.transform.position).magnitude <= _activeRadius)
+            {
+                Invoke(nameof(Activate), _explosionDelay);
+                _onTrapIgnition?.Invoke();
+                m_isTrapActive = false;
+            }
         }
-    }*/
+    }
+
+    private void OnDestroy()
+    {
+        _interaction.TriggerEnter3D -= AddObject;
+        _interaction.TriggerExit3D -= RemoveObject;
+    }
+
+    private void AddObject(Collider other)
+    {
+        if (!_collidersIn.Contains(other))
+        {
+            _collidersIn.Add(other);
+        }
+    }
+
+    private void RemoveObject(Collider other)
+    {
+        if (_collidersIn.Contains(other))
+        {
+            _collidersIn.Remove(other);
+        }
+    }
 
     public override void Activate()
     {
-        RaycastHit[] colliders = Physics.SphereCastAll(transform.position, _explosionRadius, Vector3.up, Mathf.Infinity, _layer);
-        foreach (RaycastHit info in colliders)
-        {
-            // Applie damage
-            if (info.transform.TryGetComponent<IDamageable>(out IDamageable healthComponent))
-            {
-                healthComponent.TakeDamage(m_scoreGain);
-            }
+        InflictFullDamageToPlayer();
 
-            // Add force
+        // Add force
+        foreach (Collider info in _collidersIn)
+        {
             if (info.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbodyComponent))
             {
                 Vector3 direction = (rigidbodyComponent.transform.position - transform.position).normalized;
