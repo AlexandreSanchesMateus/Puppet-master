@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Game
 {
-    public class Health : MonoBehaviour
+    public class ScoreManager : MonoBehaviour
     {
         [SerializeField] private ScoreReference _reference;
 
@@ -17,7 +17,7 @@ namespace Game
 
         private void Start()
         {
-            ((ISet<Health>)_reference).Set(this);
+            ((ISet<ScoreManager>)_reference).Set(this);
         }
 
         public void AddScore(int amount)

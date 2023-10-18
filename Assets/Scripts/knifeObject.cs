@@ -12,14 +12,10 @@ public class KnifeObject : MonoBehaviour,IPickable
 
     [SerializeField, Required] private Rigidbody m_rigidbody;
 
-    [SerializeField, Required] private PlayerReference m_playerReference;
-
     [SerializeField, BoxGroup("Settings")] private int m_damage = 10;
 
 	public void Take(Transform parent)
 	{
-		m_playerReference.Instance.currentWeapon = this;
-
 		transform.SetParent(parent);
 
         transform.transform.position = parent.transform.position;

@@ -41,7 +41,7 @@ public class EnclumeTrap : Trap
         foreach (RaycastHit info in colliders)
         {
             // Applie damage
-            if (info.transform.TryGetComponent<IHealth>(out IHealth healthComponent))
+            if (info.transform.TryGetComponent<IDamageable>(out IDamageable healthComponent))
             {
                 healthComponent.TakeDamage(m_scoreGain);
             }

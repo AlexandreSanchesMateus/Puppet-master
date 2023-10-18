@@ -20,8 +20,6 @@ public class Seringue_Object : Trap, IPickable
 
 	public void Take ( Transform parent )
 	{
-		m_playerReference.Instance.currentWeapon = this;
-
 		transform.SetParent(parent);
 
 		transform.transform.position = parent.transform.position;

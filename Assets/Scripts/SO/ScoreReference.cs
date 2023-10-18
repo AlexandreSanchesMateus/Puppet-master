@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game;
 
-public class ScoreReference : Reference<Health>
+[CreateAssetMenu(fileName = "ScoreReference", menuName = "ScriptableObject/ScoreReference")]
+public class ScoreReference : Reference<ScoreManager>
 {
     
 }

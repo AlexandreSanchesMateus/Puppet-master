@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Game
 {
-    public class HealthProxy : MonoBehaviour, IDamageable
+    public class ScoreProxy : MonoBehaviour, IDamageable
     {
         [SerializeField, BoxGroup("Setup"), Required] ScoreReference _target;
         [SerializeField, BoxGroup("Setup")] private Rigidbody m_limbRigidbody;
