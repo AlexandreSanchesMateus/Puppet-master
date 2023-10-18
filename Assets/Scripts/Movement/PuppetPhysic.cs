@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class PuppetPhysic : MonoBehaviour
 {
     [SerializeField, BoxGroup("Dependences")] private BalanceForce _balanceManager;
+    [SerializeField, BoxGroup("Dependences")] private BalanceForce _headManager;
+    [SerializeField, BoxGroup("Dependences")] private PuppetInteraction _interactionManager;
 
     [SerializeField, BoxGroup("Setup")] private Rigidbody _downRb;
     [SerializeField, BoxGroup("Setup")] private Transform _applyPoint;
@@ -37,7 +39,8 @@ public class PuppetPhysic : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Max extention leg
+        if (_applyPoint == null) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawLine(_applyPoint.position, _applyPoint.position + (Vector3.down * _legLength));
     }
@@ -53,7 +56,7 @@ public class PuppetPhysic : MonoBehaviour
                     _downRb.AddForceAtPosition(Vector3.down * _downForce + Movement, _applyPoint.position);
 
                     // Rotation
-                    Vector3 torque = Vector3.Project(Vector3.Cross(Camera.main.transform.forward, -_downRb.transform.up), Vector3.up);
+                    Vector3 torque = Vector3.Project(Vector3.Cross(Camera.main.transform.forward, -_downRb.transform.forward), Vector3.up);
                     _downRb.AddTorque(torque * _turnForce * Time.fixedDeltaTime);
                     Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.green);
                 }
@@ -61,16 +64,20 @@ public class PuppetPhysic : MonoBehaviour
                 {
                     _state = EPuppetPhysic.NOT_GROUNDED;
                     _balanceManager.EnableBalance(false);
+                    _headManager.EnableBalance(false);
+                    _interactionManager.EnableleInteraction(false);
                 }
 
                 CheckBodyTilting();
                 break;
 
             case EPuppetPhysic.NOT_GROUNDED:
-                if (Physics.Raycast(_applyPoint.position, _applyPoint.right, _legLength, _mask))
+                if (Physics.Raycast(_applyPoint.position, Vector3.down, _legLength, _mask))
                 {
                     _state = EPuppetPhysic.STANDING;
                     _balanceManager.EnableBalance(true);
+                    _headManager.EnableBalance(true);
+                    _interactionManager.EnableleInteraction(true);
                 }
 
                 Debug.DrawRay(_applyPoint.position, Vector3.down * _legLength, Color.red);
@@ -78,9 +85,10 @@ public class PuppetPhysic : MonoBehaviour
                 break;
 
             case EPuppetPhysic.RECOVER:
-                if (Vector3.Dot(Vector3.up, -_applyPoint.right) > 0.5f)
+                if (Vector3.Dot(Vector3.up, _applyPoint.up) > 0.5f)
                 {
                     _state = EPuppetPhysic.STANDING;
+                    _interactionManager.EnableleInteraction(true);
                     _onPuppetFullyRecover?.Invoke();
                 }
                 _downRb.AddForceAtPosition(Vector3.down * _downForce, _applyPoint.position);
@@ -95,6 +103,7 @@ public class PuppetPhysic : MonoBehaviour
                     {
                         _state = EPuppetPhysic.RECOVER;
                         _balanceManager.EnableBalance(true);
+                        _headManager.EnableBalance(true);
                     }
                 }
                 break;
@@ -103,10 +112,12 @@ public class PuppetPhysic : MonoBehaviour
 
     private void CheckBodyTilting()
     {
-        if(Vector3.Dot(Vector3.up, -_applyPoint.right) <= 0.2f)
+        if(Vector3.Dot(Vector3.up, _applyPoint.up) <= 0.2f)
         {
             _state = EPuppetPhysic.DISABLE;
             _balanceManager.EnableBalance(false);
+            _headManager.EnableBalance(false);
+            _interactionManager.EnableleInteraction(false);
             _onPuppetDisable?.Invoke();
             _timer = 0;
         }
