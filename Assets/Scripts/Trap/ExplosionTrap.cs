@@ -7,19 +7,50 @@ using Game;
 
 public class EnclumeTrap : Trap 
 {
-    [SerializeField] private float _activeRadius;
-    [SerializeField] private float _explosionDelay;
+    [SerializeField, BoxGroup("Settings")] private float _explosionDelay;
+    [SerializeField, BoxGroup("Settings")] private float _explosionForce;
+    [SerializeField, BoxGroup("Settings")] private LayerMask _layer;
+    [SerializeField, BoxGroup("Settings")] private float _activeRadius;
+    [SerializeField, BoxGroup("Settings")] private float _explosionRadius;
 
-    [SerializeField, Foldout("Events")] private UnityEvent _onTrapActivate;
-    [SerializeField, Foldout("Events")] private UnityEvent _onTrapExplode;
+    [SerializeField, Foldout("Events")] private UnityEvent _onTrapIgnition;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        Gizmos.DrawSphere(transform.position, _explosionRadius);
+
+        Gizmos.color = new Color(0, 0, 0, 0.2f);
+        Gizmos.DrawSphere(transform.position, _activeRadius);
+    }
 
     private void Update()
     {
         if((m_playerReference.Instance.transform.position - transform.position).magnitude <= _activeRadius)
         {
-            Activate();
+            _onTrapIgnition?.Invoke();
+            Invoke(nameof(Activate), _explosionDelay);
         }
     }
 
+    public override void Activate()
+    {
+        RaycastHit[] colliders = Physics.SphereCastAll(transform.position, _explosionRadius, Vector3.up, Mathf.Infinity, _layer);
+        foreach (RaycastHit info in colliders)
+        {
+            // Applie damage
+            if (info.transform.TryGetComponent<IHealth>(out IHealth healthComponent))
+            {
+                healthComponent.TakeDamage(m_scoreGain);
+            }
 
+            // Add force
+            if (info.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbodyComponent))
+            {
+                rigidbodyComponent.AddForce((rigidbodyComponent.transform.position - transform.position) * _explosionForce, ForceMode.Impulse);
+            }
+        }
+
+        base.Activate();
+    }
 }
