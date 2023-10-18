@@ -13,6 +13,7 @@ public class BearTrap : Trap
     [SerializeField] private Transform _firstPart, _secondPart;
     private Vector3 _baseRotFirstPart, _baseRotSecondPart;
     public UnityEvent OnClose;
+    [SerializeField] private float _impulseForce = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,15 +34,24 @@ public class BearTrap : Trap
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-            Activate();
+        {
+            Activate(other.GetComponent<Rigidbody>());
+        }
     }
     [Button]
-    private void Activate()
+    private void Activate(Rigidbody rb)
     {
         _camera.gameObject.SetActive(true);
         Sequence mySequence = DOTween.Sequence();
         mySequence.AppendInterval(0.2f);
         mySequence.Append(_firstPart.DOLocalRotate(new Vector3(0, 0, 90),0.20f,RotateMode.Fast));
         mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> OnClose.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
+        StartCoroutine(launchPlayer());
+        IEnumerator launchPlayer()
+        {
+            yield return new WaitForSeconds(5f);
+            rb.AddForce(transform.forward * _impulseForce, ForceMode.Impulse);
+            _camera.gameObject.SetActive(false);
+        }
     }
 }
