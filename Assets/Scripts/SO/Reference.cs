@@ -21,5 +21,4 @@ public class Reference<T> : ScriptableObject, ISet<T>
         _instance = value;
         OnValueChanged?.Invoke(_instance);
     }
-
 }

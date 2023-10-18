@@ -28,7 +28,14 @@ public class SceneLoader : MonoBehaviour
 
     void Start()
     {
-        // Load MenuPrincipale
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (SceneManager.GetSceneAt(i).buildIndex == 1)
+            {
+                return;
+            }
+        }
+
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
     }
 
@@ -86,4 +93,6 @@ public class SceneLoader : MonoBehaviour
     public static void LoadMenuScene() => LoadSceneAtIndex(1);
 
     public static void LoadGameScene() => LoadSceneAtIndex(2);
+
+    public static void QuitGame() => Application.Quit();
 }
