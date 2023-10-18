@@ -284,7 +284,7 @@
                 {
                     "name": "",
                     "id": "ad9267b9-5a63-4be7-a436-d05d8dfeeab8",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/7",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -295,7 +295,7 @@
                 {
                     "name": "",
                     "id": "d1260086-9337-4e4e-85b8-bb8a19e925c5",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/8",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

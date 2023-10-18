@@ -1,38 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    [SerializeField] private float _checkRadius;
-    [SerializeField] private LayerMask _layer;
+    [SerializeField] private SphereCollider m_sphereCollider;
+
+    [SerializeField] private Transform m_weaponHolder;
 
     private IPickable _currentObject;
 
-    private void OnDrawGizmosSelected()
+    public void Start()
     {
-        Gizmos.color = new Color(0, 0.8f, 0, 0.2f);
-        Gizmos.DrawSphere(transform.position, _checkRadius);
-    }
+	    if (m_sphereCollider.enabled) m_sphereCollider.enabled = false;
+	}
 
     public void TakeObject()
     {
         if (_currentObject != null) return;
 
-        if(Physics.SphereCast(transform.position, _checkRadius, Vector3.down, out RaycastHit info, _layer))
-        {
-            if(info.collider.gameObject.TryGetComponent<IPickable>(out _currentObject))
-            {
-                _currentObject.Take(transform);
-            }
-        }
+        m_sphereCollider.enabled = true;
     }
+
+    public void OnTriggerEnter(Collider _collider)
+    {
+	    if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
+	    {
+		    pickUp.Take(m_weaponHolder);
+		    m_sphereCollider.enabled = false;
+		}
+	}
 
     public void ReleaseObject()
     {
+        m_sphereCollider.enabled = false;
+
         if (_currentObject == null) return;
 
-        _currentObject.Release();
+		_currentObject.Release();
         _currentObject = null;
     }
 }
