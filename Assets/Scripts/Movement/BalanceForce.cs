@@ -12,16 +12,16 @@ public class BalanceForce : MonoBehaviour
     
     private Vector2 _forceDirection = Vector2.zero;
 
-    public bool EnableBalace { get; private set; } = true;
+    public bool Enable { get; private set; } = true;
 
     private void FixedUpdate()
     {
-        if (!EnableBalace) return;
+        if (!Enable) return;
 
         _rb.AddForceAtPosition(Vector3.up * _strandingForce + new Vector3(_forceDirection.x, 0, _forceDirection.y), _forcePoint.position, ForceMode.Force);
     }
 
     public void SetDirection(Vector2 direction) => _forceDirection = direction;
 
-    public void EnableBalance(bool enable) => EnableBalace = enable;
+    public void EnableBalance(bool enable) => Enable = enable;
 }

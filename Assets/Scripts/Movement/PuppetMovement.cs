@@ -12,11 +12,14 @@ public class PuppetMovement : MonoBehaviour
     [SerializeField, BoxGroup("Settings")] private float _movementSpeed;
     [SerializeField, BoxGroup("Settings")] private float _turnSpeed;
 
-    [SerializeField] private float _detectionTurnTime;
-    [SerializeField] private float _stopInputTime;
+    [SerializeField, BoxGroup("Settings")] private float _detectionTurnTime;
+    [SerializeField, BoxGroup("Settings")] private float _stopInputTime;
 
-    [SerializeField] private (ELegState, ELegState) _legsState;
-    [SerializeField] private (ELegState, ELegState) _nextLegsState;
+    [SerializeField, BoxGroup("Leg Settings")] private Leg _rightLeg;
+    [SerializeField, BoxGroup("Leg Settings")] private Leg _leftLeg;
+
+    private (ELegState, ELegState) _legsState;
+    private (ELegState, ELegState) _nextLegsState;
 
     private EVerticalMovement _verticalMovement;
 
@@ -144,22 +147,18 @@ public class PuppetMovement : MonoBehaviour
                 break;
 
             case EVerticalMovement.BACKWARD:
-            case EVerticalMovement.FORWARD:
-                // Loop step action
-                if (_legsState.Item1 == _nextLegsState.Item1 && _legsState.Item2 == _nextLegsState.Item2)
+                if (UpdateStep())
                 {
-                    if (_inputCoroutine != null)
-                        StopCoroutine(_inputCoroutine);
+                    _puppetPhysic.Movement = -new Vector3(_camera.forward.x, 0, _camera.forward.z).normalized * _movementSpeed;
+                    UpdateLegsImpulse(true);
+                }
+                break;
 
-                    _inputCoroutine = StartCoroutine(StartTimer(_stopInputTime, () =>
-                    {
-                        _verticalMovement = EVerticalMovement.STOP;
-                        _puppetPhysic.Movement = Vector2.zero;
-                    }));
-
-                    _nextLegsState = (_legsState.Item1 == ELegState.FORWARD ? ELegState.BACKWARD : ELegState.FORWARD, _legsState.Item2 == ELegState.FORWARD ? ELegState.BACKWARD : ELegState.FORWARD);
-
+            case EVerticalMovement.FORWARD:
+                if (UpdateStep())
+                {
                     _puppetPhysic.Movement = new Vector3(_camera.forward.x, 0, _camera.forward.z).normalized * _movementSpeed;
+                    UpdateLegsImpulse(false);
                 }
                 break;
         }
@@ -189,5 +188,52 @@ public class PuppetMovement : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private void UpdateLegsImpulse(bool reverse = false)
+    {
+        if (reverse)
+        {
+            if (_legsState.Item1 == ELegState.BACKWARD)
+            {
+                _leftLeg.AddImpulse(_camera.forward, true);
+            }
+            else if (_legsState.Item2 == ELegState.BACKWARD)
+            {
+                _rightLeg.AddImpulse(_camera.forward, true);
+            }
+        }
+        else
+        {
+            if (_legsState.Item1 == ELegState.FORWARD)
+            {
+                _leftLeg.AddImpulse(_camera.forward, false);
+            }
+            else if (_legsState.Item2 == ELegState.FORWARD)
+            {
+                _rightLeg.AddImpulse(_camera.forward, false);
+            }
+        }
+    }
+
+    private bool UpdateStep()
+    {
+        if (_legsState.Item1 == _nextLegsState.Item1 && _legsState.Item2 == _nextLegsState.Item2)
+        {
+            if (_inputCoroutine != null)
+                StopCoroutine(_inputCoroutine);
+
+            _inputCoroutine = StartCoroutine(StartTimer(_stopInputTime, () =>
+            {
+                _verticalMovement = EVerticalMovement.STOP;
+                _puppetPhysic.Movement = Vector2.zero;
+            }));
+
+            _nextLegsState = (_legsState.Item1 == ELegState.FORWARD ? ELegState.BACKWARD : ELegState.FORWARD, _legsState.Item2 == ELegState.FORWARD ? ELegState.BACKWARD : ELegState.FORWARD);
+
+            return true;
+        }
+
+        return false;
     }
 }

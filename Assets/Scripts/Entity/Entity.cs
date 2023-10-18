@@ -11,6 +11,30 @@ namespace Game
     {
         public Health Health => _health;
         [SerializeField, Required()] protected Health _health;
+
+        [SerializeField] protected knifeObject _knifeObject;
+        [SerializeField] protected Transform _weaponHolder;
+
+        protected GameObject _currentWeapon;
+
+        private void Update()
+        {
+	        if (Input.GetKeyDown(KeyCode.A))
+	        {
+		        if (!_currentWeapon)
+		        {
+					_knifeObject.Take(_weaponHolder);
+
+					_currentWeapon = _knifeObject.gameObject;
+				}
+		        else
+		        {
+			        _knifeObject.Release();
+
+			        _currentWeapon = null;
+				}
+	        }
+        }
 /*
         public GameObject Model => _model;
         [SerializeField] private GameObject _model;
