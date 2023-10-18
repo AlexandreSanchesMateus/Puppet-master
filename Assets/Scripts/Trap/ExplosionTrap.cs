@@ -47,7 +47,8 @@ public class EnclumeTrap : Trap
             // Add force
             if (info.transform.TryGetComponent<Rigidbody>(out Rigidbody rigidbodyComponent))
             {
-                rigidbodyComponent.AddForce((rigidbodyComponent.transform.position - transform.position) * _explosionForce, ForceMode.Impulse);
+                Vector3 direction = (rigidbodyComponent.transform.position - transform.position).normalized;
+                rigidbodyComponent.AddForce(direction * _explosionForce, ForceMode.Impulse);
             }
         }
 
