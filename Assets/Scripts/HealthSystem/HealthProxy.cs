@@ -17,14 +17,6 @@ namespace Game
 
 		private void OnCollisionEnter(Collision _collider)
 		{
-			if (!_target.Entity.HasWeapon())
-			{
-				if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
-				{
-					pickUp.Take(_target.Entity.WeaponHolder);
-				}
-			}
-
 			return;
 
 			if (_collider.gameObject.layer != 6)
