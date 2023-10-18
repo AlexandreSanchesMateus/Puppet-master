@@ -2,27 +2,30 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game
 {
     public class HealthProxy : MonoBehaviour, IDamageable
     {
-        [SerializeField, Required] Health _target;
-        [SerializeField] private Rigidbody m_limbRigidbody;
+        [SerializeField, BoxGroup("Setup"), Required] ScoreReference _target;
+        [SerializeField, BoxGroup("Setup")] private Rigidbody m_limbRigidbody;
 
-        [SerializeField] private float m_damageMultiply = 1f;
-        private float m_minSpeedForDamage = 0.1f;
+        [SerializeField, BoxGroup("settings")] private float m_damageMultiply = 1f;
+        [SerializeField, BoxGroup("settings")] private int m_minDamage = 1;
+        [SerializeField, BoxGroup("settings")] private int m_maxDamage = 1;
 
-        public void TakeDamage(int amount) => _target.TakeDamage(amount);
+        [SerializeField, Foldout("Events")] private UnityEvent m_onTakeDamage;
+
+        public void TakeDamage(int amount)
+        {
+            _target.Instance.AddScore(amount);
+            m_onTakeDamage?.Invoke();
+        }
 
 		private void OnCollisionEnter(Collision _collider)
 		{
-			return;
-
-			if (_collider.gameObject.layer != 6)
-				return;
-
-            if (TryGetComponent(out Rigidbody rb))
+            if (_collider.transform.TryGetComponent<Rigidbody>(out Rigidbody rb))
             {
                 OnCollideWithRigidbody(rb);
             }
@@ -57,26 +60,24 @@ namespace Game
             float thisVelocity = m_limbRigidbody.velocity.magnitude;
             float otherVelocity = _rigidbody.velocity.magnitude;
 
-            _target.score += CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1");
-			_target.score += CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2");
+            _target.Instance.AddScore(CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1"));
+			_target.Instance.AddScore(CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2"));
         }
 
         private void OnCollideWithCollider(Collider _collider)
         {
             float relativeSpeed = m_limbRigidbody.velocity.magnitude;
-			_target.score += CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider");
+			_target.Instance.AddScore(CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider"));
         }
 
-        private float CalculateDamageBaseOnSpeed(float _relativeSpeed, string _name)
+        private int CalculateDamageBaseOnSpeed(float _relativeSpeed, string _name)
         {
-            if (_relativeSpeed <= m_minSpeedForDamage)
+            int damages = Mathf.RoundToInt(_relativeSpeed * m_damageMultiply);
+
+            if (damages <= m_minDamage)
                 return 0;
 
-            float damages = _relativeSpeed * m_damageMultiply;
-
-            //Debug.Log(_name + damages);
-
-            return damages;
+            return Mathf.Min(damages, m_maxDamage);
         }
     }
 }

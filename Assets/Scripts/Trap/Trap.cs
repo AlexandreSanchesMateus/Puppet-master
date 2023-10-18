@@ -11,7 +11,7 @@ namespace Game
 		public event UnityAction OnTrapActivate { add => m_onTrapActivate.AddListener(value); remove => m_onTrapActivate.RemoveListener(value); }
 		[SerializeField, Foldout("Events")] private UnityEvent m_onTrapActivate;
 
-		[SerializeField, BoxGroup("Dependencies")] protected PlayerReference m_playerReference;
+		[SerializeField, BoxGroup("Dependencies")] protected ScoreReference m_scoreReference;
 
 		public GameObject Model => m_model;
 		[SerializeField] private GameObject m_model;
@@ -49,8 +49,7 @@ namespace Game
 
 		protected void InflictFullDamageToPlayer()
 		{
-			m_playerReference.Instance.Health.TakeDamage(m_scoreGain);
-
+			m_scoreReference.Instance.AddScore(m_scoreGain);
 			m_scoreLeftToGain -= m_scoreGain;
 		}
 
@@ -64,12 +63,12 @@ namespace Game
 
 			if (damageToDo > m_scoreLeftToGain)
 			{
-				m_playerReference.Instance.Health.TakeDamage(m_scoreLeftToGain);
+				m_scoreReference.Instance.AddScore(m_scoreLeftToGain);
 				m_scoreLeftToGain -= m_scoreLeftToGain;
 			}
 			else
 			{
-				m_playerReference.Instance.Health.TakeDamage((int)damageToDo);
+				m_scoreReference.Instance.AddScore((int)damageToDo);
 				m_scoreLeftToGain -= (int)damageToDo;
 			}
 		}

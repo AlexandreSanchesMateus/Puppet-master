@@ -25,7 +25,7 @@ public class EnclumeTrap : Trap
         Gizmos.DrawSphere(transform.position, _activeRadius);
     }
 
-    private void Update()
+    /*private void Update()
     {
         if((m_playerReference.Instance.transform.position - transform.position).magnitude <= _activeRadius&& !_isIgnited)
         {
@@ -33,7 +33,7 @@ public class EnclumeTrap : Trap
             Invoke(nameof(Activate), _explosionDelay);
             _isIgnited = true;
         }
-    }
+    }*/
 
     public override void Activate()
     {

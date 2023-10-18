@@ -1,43 +1,31 @@
 using NaughtyAttributes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 namespace Game
 {
-    public class Health : MonoBehaviour, IDamageable
+    public class Health : MonoBehaviour
     {
-	    public event Action<int> OnDamage;
-	    public event Action OnDie;
+        [SerializeField] private ScoreReference _reference;
 
-        public Entity Entity => _entityRef;
-        [SerializeField] private Entity _entityRef;
+	    public event UnityAction OnIncreasingScore { add => _onScoreIncrease.AddListener(value); remove => _onScoreIncrease.RemoveListener(value); }
+        [SerializeField, Foldout("Events")] private UnityEvent _onScoreIncrease;
 
-        public float score;
+        public float score { get; private set; }
 
-		public void TakeDamage(int amount)
+
+        private void Start()
         {
-            Assert.IsTrue(amount >= 0);
+            ((ISet<Health>)_reference).Set(this);
+        }
 
-            OnDamage?.Invoke(amount);
+        public void AddScore(int amount)
+        {
+            if (amount <= 0) return;
 
             score += amount;
-
-			DamageEffect();
-        }
-        
-        private void DamageEffect()
-        {
-	        
-		}
-
-        private void OnDestroy()
-        {
-
+            _onScoreIncrease?.Invoke();
         }
     }
 }
