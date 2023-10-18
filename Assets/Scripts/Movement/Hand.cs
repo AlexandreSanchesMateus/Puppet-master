@@ -16,23 +16,25 @@ public class Hand : MonoBehaviour
 	    if (m_sphereCollider.enabled) m_sphereCollider.enabled = false;
 	}
 
-    public void TakeObject()
+    public void Interact()
+    {
+	    if (_currentObject == null)
+	    {
+		    TakeObject();
+	    }
+	    else
+	    {
+		    ReleaseObject();
+	    }
+    }
+
+    private void TakeObject()
     {
         if (_currentObject != null) return;
 
-        m_sphereCollider.enabled = true;
+		m_sphereCollider.enabled = true;
     }
-
-    public void OnTriggerEnter(Collider _collider)
-    {
-	    if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
-	    {
-		    pickUp.Take(m_weaponHolder);
-		    m_sphereCollider.enabled = false;
-		}
-	}
-
-    public void ReleaseObject()
+    private void ReleaseObject()
     {
         m_sphereCollider.enabled = false;
 
@@ -41,4 +43,15 @@ public class Hand : MonoBehaviour
 		_currentObject.Release();
         _currentObject = null;
     }
+
+    private void OnTriggerEnter(Collider _collider)
+    {
+	    if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
+	    {
+		    _currentObject = pickUp;
+
+			pickUp.Take(m_weaponHolder);
+		    m_sphereCollider.enabled = false;
+		}
+	}
 }

@@ -134,28 +134,14 @@ public class PuppetInteraction : MonoBehaviour
         _onLeftHandChange?.Invoke();
     }
 
-    public void SetLeftHandInteraction(bool interact)
+    public void SetLeftHandInteraction()
     {
-        if (interact)
-        {
-            _LHandData.interaction.TakeObject();
-        }
-        else
-        {
-            _LHandData.interaction.ReleaseObject();
-        }
+	    _LHandData.interaction.Interact();
     }
 
-    public void SetRightHandInteraction(bool interact)
+    public void SetRightHandInteraction()
     {
-        if (interact)
-        {
-            _RHandData.interaction.TakeObject();
-        }
-        else
-        {
-            _RHandData.interaction.ReleaseObject();
-        }
+	    _RHandData.interaction.Interact();
     }
 
     private void UpdateHandPosition(HandData info)

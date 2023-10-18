@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class KnifeObject : MonoBehaviour,IPickable
+public class Weapons : MonoBehaviour,IPickable
 {
     public UnityEvent OnCut;
 
@@ -36,12 +36,15 @@ public class KnifeObject : MonoBehaviour,IPickable
 	    if (collision.gameObject.TryGetComponent(out ICutable toCut))
 	    {
 		    toCut.Cut();
-	    }
-	    OnCut?.Invoke();
+
+		    OnCut?.Invoke();
+		}
 
 		if (collision.gameObject.TryGetComponent(out IDamageable health))
 		{
 			health.TakeDamage(m_damage);
+
+			OnCut?.Invoke();
 		}
 	}
 
@@ -50,8 +53,9 @@ public class KnifeObject : MonoBehaviour,IPickable
 		if (other.gameObject.TryGetComponent<ICutable>(out ICutable toCut))
 		{
 			toCut.Cut();
+
+			OnCut?.Invoke();
 		}
-		OnCut?.Invoke();
 	}
 
 	[Button]
