@@ -5,6 +5,7 @@ using Game;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEngine.UI.CanvasScaler;
 
 public class CombustionTrap : Trap, ICutable
@@ -19,6 +20,13 @@ public class CombustionTrap : Trap, ICutable
 	[SerializeField, BoxGroup("Settings")] private float m_fireDurationLeftDefault = 6f;
 	[SerializeField, BoxGroup("Settings"), ReadOnly] private float m_fireDurationLeft = 6f;
 	[SerializeField, BoxGroup("Settings")] private bool m_isPlayerInFire;
+
+	[Foldout("Event")] public UnityEvent onCutRope;
+	[Foldout("Event")] public UnityEvent onLampTouchGround;
+	[Foldout("Event")] public UnityEvent onResetTrap;
+	[Foldout("Event")] public UnityEvent onPlayerTriggerStay;
+	[Foldout("Event")] public UnityEvent onPlayerTriggerExit;
+	[Foldout("Event")] public UnityEvent onPlayerDamage;
 
 	private Vector3 m_fallingLampBasePos;
 
@@ -36,6 +44,8 @@ public class CombustionTrap : Trap, ICutable
 			if (x.gameObject.layer == 6)
 			{
 				m_isPlayerInFire = true;
+
+				onPlayerTriggerStay?.Invoke();
 			}
 		};
 
@@ -61,6 +71,8 @@ public class CombustionTrap : Trap, ICutable
 		if (_collider.gameObject.layer == 6)
 		{
 			m_isPlayerInFire = false;
+
+			onPlayerTriggerExit?.Invoke();
 		}
 	}
 
@@ -99,11 +111,19 @@ public class CombustionTrap : Trap, ICutable
 
 		m_isTrapActive = false;
 		m_timeBetweenTick = 0;
+
+		Vector3 defaultScale = m_fallingLamp.transform.localScale;
+
+		m_fallingLamp.transform.DOScale(defaultScale, 0.3f).From(0);
+
+		onResetTrap?.Invoke();
 	}
 
 	private void FireDamageFxs()
 	{
 		// rename this whatever you want
+
+		onPlayerDamage?.Invoke();
 	}
 
 	[Button]
@@ -113,6 +133,8 @@ public class CombustionTrap : Trap, ICutable
 
 		m_flameToActivate.transform.position = new Vector3(posToFall.x, m_flameToActivate.transform.position.y, posToFall.z);
 
+		onCutRope?.Invoke();
+
 		m_fallingLamp.transform.DOMove(posToFall, m_lampFallDuration).SetEase(Ease.InExpo).OnComplete(
 			() =>
 			{
@@ -120,6 +142,8 @@ public class CombustionTrap : Trap, ICutable
 				m_flameToActivate.SetActive(true);
 
 				m_isTrapActive = true;
+
+				onLampTouchGround?.Invoke();
 			});
 	}
 }
