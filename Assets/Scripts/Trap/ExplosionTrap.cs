@@ -14,6 +14,7 @@ public class EnclumeTrap : Trap
     [SerializeField, BoxGroup("Settings")] private float _explosionRadius;
 
     [SerializeField, Foldout("Events")] private UnityEvent _onTrapIgnition;
+    private bool _isIgnited;
 
     private void OnDrawGizmosSelected()
     {
@@ -26,10 +27,11 @@ public class EnclumeTrap : Trap
 
     private void Update()
     {
-        if((m_playerReference.Instance.transform.position - transform.position).magnitude <= _activeRadius)
+        if((m_playerReference.Instance.transform.position - transform.position).magnitude <= _activeRadius&& !_isIgnited)
         {
             _onTrapIgnition?.Invoke();
             Invoke(nameof(Activate), _explosionDelay);
+            _isIgnited = true;
         }
     }
 
