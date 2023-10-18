@@ -27,7 +27,7 @@ public class Hand : MonoBehaviour
     {
 	    if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
 	    {
-		    pickUp.Take(transform);
+		    pickUp.Take(m_weaponHolder);
 		    m_sphereCollider.enabled = false;
 		}
 	}

@@ -37,7 +37,7 @@ public class KnifeObject : MonoBehaviour,IPickable
 	}
 	private void OnCollisionEnter(Collision collision)
     {
-	    if (collision.gameObject.TryGetComponent<ICutable>(out ICutable toCut))
+	    if (collision.gameObject.TryGetComponent(out ICutable toCut))
 	    {
 		    toCut.Cut();
 	    }

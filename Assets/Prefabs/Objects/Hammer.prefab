@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4446190325283947097}
   - component: {fileID: 1788650203596537684}
   - component: {fileID: 3544482529172521633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,7 @@ MonoBehaviour:
         m_CallState: 2
   m_rigidbody: {fileID: 4446190325283947097}
   m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
+  m_damage: 10
 --- !u!65 &3545162331059796020
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -661,7 +661,7 @@ GameObject:
   - component: {fileID: 1577407945024796574}
   - component: {fileID: 5707857630521600595}
   - component: {fileID: 5354283818568423955}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: mixamorig:LeftForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2213,7 +2213,7 @@ GameObject:
   - component: {fileID: 3667965546397661609}
   - component: {fileID: 6394923337624608117}
   - component: {fileID: 6579084721862281795}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: mixamorig:RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2605,7 +2605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sphereCollider: {fileID: 2831864285790703097}
-  m_weaponHolder: {fileID: 0}
+  m_weaponHolder: {fileID: 7587810868028759389}
 --- !u!135 &2831864285790703097
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4203,7 +4203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7587810868028759389}
   m_Layer: 6
-  m_Name: WeaponHolderRightHand
+  m_Name: WeaponHolderLeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

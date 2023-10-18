@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1718442501831087913}
   - component: {fileID: 7861393801894012090}
   - component: {fileID: 1674494727456436593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seringue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bcfd26bc0ede7439208979a94a449b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_onTrapActivate:
+    m_PersistentCalls:
+      m_Calls: []
   m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
   m_model: {fileID: 1197918297832447170}
   m_scoreGain: 100
