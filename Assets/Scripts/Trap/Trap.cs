@@ -9,7 +9,7 @@ namespace Game
 	{
 		public event Action onTrapDamage;
 
-		[SerializeField] private PlayerReference m_playerReference;
+		[SerializeField] protected PlayerReference m_playerReference;
 
 		public GameObject Model => m_model;
 		[SerializeField] private GameObject m_model;
