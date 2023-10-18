@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 using NaughtyAttributes;
 
@@ -7,9 +8,10 @@ namespace Game
 {
 	public abstract class  Trap : MonoBehaviour, ITrap
 	{
-		public event Action onTrapDamage;
+		public event UnityAction OnTrapActivate { add => m_onTrapActivate.AddListener(value); remove => m_onTrapActivate.RemoveListener(value); }
+		[SerializeField, Foldout("Events")] private UnityEvent m_onTrapActivate;
 
-		[SerializeField] private PlayerReference m_playerReference;
+		[SerializeField, BoxGroup("Dependencies")] protected PlayerReference m_playerReference;
 
 		public GameObject Model => m_model;
 		[SerializeField] private GameObject m_model;
@@ -37,9 +39,7 @@ namespace Game
 
 		public virtual void Activate ()
 		{
-			
-
-			onTrapDamage?.Invoke();
+			m_onTrapActivate?.Invoke();
 		}
 
 		public virtual void ResetTrap ()
@@ -75,4 +75,3 @@ namespace Game
 		}
 	}
 }
-
