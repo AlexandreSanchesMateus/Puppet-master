@@ -12,26 +12,32 @@ namespace Game
         public Health Health => _health;
         [SerializeField, Required()] protected Health _health;
 
-        [SerializeField] protected knifeObject _knifeObject;
+        //[SerializeField] protected IPickable _knifeObject;
         [SerializeField] protected Transform _weaponHolder;
+	    public Transform WeaponHolder => _weaponHolder;
 
-        protected GameObject _currentWeapon;
+        public IPickable currentWeapon;
+
+        public bool HasWeapon()
+        {
+	        return currentWeapon != null;
+        }
 
         private void Update()
         {
 	        if (Input.GetKeyDown(KeyCode.A))
 	        {
-		        if (!_currentWeapon)
+		        if (currentWeapon == null)
 		        {
-					_knifeObject.Take(_weaponHolder);
+			        currentWeapon.Take(_weaponHolder);
 
-					_currentWeapon = _knifeObject.gameObject;
+					currentWeapon = currentWeapon;
 				}
 		        else
 		        {
-			        _knifeObject.Release();
+			        currentWeapon.Release();
 
-			        _currentWeapon = null;
+			        currentWeapon = null;
 				}
 	        }
         }
