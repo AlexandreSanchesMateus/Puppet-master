@@ -124,7 +124,7 @@ public class CombustionTrap : Trap, ICutable
 
 		m_fallingLamp.transform.DOScale(defaultScale, 0.3f).From(0);
 
-		m_currentRopes = Instantiate(m_ropePrefab, m_ropeSpawn.position, Quaternion.identity, m_ropeSpawn);
+		m_currentRopes = Instantiate(m_ropePrefab, m_ropeSpawn.position, new Quaternion(0,0,0,0), m_ropeSpawn);
 		m_currentRopes.onCut += Cut;
 
 		onResetTrap?.Invoke();

@@ -25,8 +25,10 @@ public class CutRope : MonoBehaviour, ICutable
 	{
 		if (m_ropes)
 		{
-			m_ropes.DestroyAfterTime();
-			m_ropes.DisablePlateform();
+			if (!m_ropes.HasBeenCut)
+			{
+				m_ropes.DestroyAfterTime();
+			}
 
 			//Destroy(m_ropes.TopLink?.gameObject.GetComponent<CharacterJoint>());
 			//m_ropes.TopLink?.Rigidbody?.AddForce(Vector3.down * 1000);
