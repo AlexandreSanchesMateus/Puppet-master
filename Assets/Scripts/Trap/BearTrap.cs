@@ -11,42 +11,32 @@ public class BearTrap : Trap
 {
     [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private Transform _firstPart, _secondPart;
-    private Vector3 _baseRotFirstPart, _baseRotSecondPart;
-    public UnityEvent OnClose;
+    [SerializeField] private PuppetPhysic _physic;
     [SerializeField] private float _impulseForce = 20;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        BaseState();
-    }
+    [SerializeField] private List<Collider> _colliders = new List<Collider>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void BaseState()
-    {
-        _camera.gameObject.SetActive(false);
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Activate(other.GetComponent<Rigidbody>());
-        }
+        if (m_isTrapActive) return;
+
+        Activate(other.GetComponent<Rigidbody>());
     }
-    [Button]
+
     private void Activate(Rigidbody rb)
     {
+        m_isTrapActive = true;
         _camera.gameObject.SetActive(true);
+        _colliders.ForEach(c => c.enabled = true);
+
+        _physic.SetPuppetPhysicToDisable();
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.AppendInterval(0.2f);
         mySequence.Append(_firstPart.DOLocalRotate(new Vector3(0, 0, 90),0.20f,RotateMode.Fast));
-        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> OnClose.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
+        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> m_onTrapActivate?.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
+        
         StartCoroutine(launchPlayer());
+
         IEnumerator launchPlayer()
         {
             yield return new WaitForSeconds(5f);
