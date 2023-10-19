@@ -18,11 +18,13 @@ public class SharpWeapon : Weapons
 	    {
 		    Cut(toCut);
 	    }
-    }
+
+	    OnCut?.Invoke();
+	}
 
 	protected void Cut ( ICutable toCut )
 	{
 		toCut.Cut();
-		OnCut?.Invoke();
+		//OnCut?.Invoke();
 	}
 }

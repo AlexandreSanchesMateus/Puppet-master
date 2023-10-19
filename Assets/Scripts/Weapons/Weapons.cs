@@ -36,10 +36,23 @@ public class Weapons : MonoBehaviour, IPickable
 		if (collision.gameObject.TryGetComponent(out IDamageable health))
 		{
 			health.TakeDamage(m_damage);
-
-			OnCut?.Invoke();
 		}
-	}
+
+		OnCut?.Invoke();
+
+		StartCoroutine(CheckIfStillGrounded());
+    }
+
+    private IEnumerator CheckIfStillGrounded()
+    {
+	    yield return new WaitForSeconds(2f);
+
+	    if (this.transform.position.y <= 0)
+	    {
+		    this.transform.position = new Vector3(this.transform.position.x, 1, this.transform.position.z);
+		    m_rigidbody.velocity = Vector3.zero;
+		}
+    }
 
 
 	[Button]
