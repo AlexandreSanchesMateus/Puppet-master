@@ -15,8 +15,8 @@ public class Ropes : MonoBehaviour
 	[SerializeField] private GameObject m_topRope;
 	[SerializeField] private GameObject m_plateform;
 
-	[SerializeField]  private List<CharacterJoint> _jointsParents = new List<CharacterJoint>();
-    [SerializeField]  private List<CharacterJoint> _jointsChild = new List<CharacterJoint>();
+	private List<CharacterJoint> _jointsParents = new List<CharacterJoint>();
+    private List<CharacterJoint> _jointsChild = new List<CharacterJoint>();
 
     [SerializeField, OnValueChanged("Check")] private CutRope _topLink;
     public CutRope TopLink => _topLink;
@@ -66,7 +66,6 @@ public class Ropes : MonoBehaviour
 	    }
     }
 
-	[Button]
     void AddCharacterBodyParent()
     {
 	    for (int i = 1; i < _gameObjects.Length; i++)
@@ -83,7 +82,6 @@ public class Ropes : MonoBehaviour
 		}
 	}
 
-    [Button]
     void AddCharacterBodyChild ()
     {
 	    for (int i = 0; i < _gameObjects.Length - 1; i++)
