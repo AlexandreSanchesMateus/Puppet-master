@@ -9,23 +9,14 @@ namespace Game
 	public abstract class  Trap : MonoBehaviour, ITrap
 	{
 		public event UnityAction OnTrapActivate { add => m_onTrapActivate.AddListener(value); remove => m_onTrapActivate.RemoveListener(value); }
-		[SerializeField, Foldout("Events")] private UnityEvent m_onTrapActivate;
+		[SerializeField, Foldout("Events")] protected UnityEvent m_onTrapActivate;
 
 		[SerializeField, BoxGroup("Dependencies")] protected ScoreReference m_scoreReference;
 
-		public GameObject Model => m_model;
-		[SerializeField] private GameObject m_model;
-
-		public Vector3 DefaultModelScale { get; private set; }
 		protected bool m_isTrapActive;
 
 		[SerializeField, BoxGroup("Settings")] protected int m_scoreGain;
 		[SerializeField, BoxGroup("Settings")] protected int m_scoreLeftToGain;
-
-		protected virtual void Awake()
-		{
-			DefaultModelScale = m_model.transform.localScale;
-		}
 
 		protected virtual void Start ()
 		{

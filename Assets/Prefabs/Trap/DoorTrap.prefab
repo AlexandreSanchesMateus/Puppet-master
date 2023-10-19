@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 8818792049168382999}
   - component: {fileID: 4387172573704328244}
   - component: {fileID: 5211610220115451451}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,10 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042dff38c4d176d479ba6ab25e81f2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
-  m_model: {fileID: 0}
-  m_scoreGain: 0
-  OnActivate:
+  m_onTrapActivate:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5195786541949196957}
@@ -554,6 +551,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_scoreReference: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  m_scoreGain: 0
+  m_scoreLeftToGain: 0
   OnDoorClose:
     m_PersistentCalls:
       m_Calls:
@@ -569,9 +569,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _physic: {fileID: 0}
   pivot1: {fileID: 8944682935245942949}
   pivot2: {fileID: 2153656011474715752}
-  _impulseForce: 10
+  _impulseForce: 40
+  _impulseDirection: {x: 0, y: 0.2, z: -0.8}
 --- !u!1 &5717124074212945634
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5717124074212945634}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.8998041, z: -0, w: 0.43629414}
+  m_LocalRotation: {x: 0, y: 0.9063079, z: 0, w: 0.42261827}
   m_LocalPosition: {x: 0.441, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -628,7 +630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6044886822218860323}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.92557317, z: -0, w: 0.3785689}
+  m_LocalRotation: {x: 0, y: -0.9063079, z: 0, w: 0.42261827}
   m_LocalPosition: {x: -0.432, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

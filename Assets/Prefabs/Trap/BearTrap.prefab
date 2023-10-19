@@ -311,9 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702570b4f3db51e47a4be4e5ccfbc97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
-  m_model: {fileID: 0}
+  m_onTrapActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_scoreReference: {fileID: 0}
   m_scoreGain: 0
+  m_scoreLeftToGain: 0
   _camera: {fileID: 2038780379142371289}
   _firstPart: {fileID: 7811971224362805933}
   _secondPart: {fileID: 7349408612638542332}
@@ -332,6 +335,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _impulseForce: 20
 --- !u!135 &8761744208248645533
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1447,7 +1451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2620888229115382572
 Transform:
   m_ObjectHideFlags: 0
@@ -1457,7 +1461,7 @@ Transform:
   m_GameObject: {fileID: 5134637729047505107}
   serializedVersion: 2
   m_LocalRotation: {x: -0.02744331, y: -0.9724002, z: 0.1547406, w: -0.17245296}
-  m_LocalPosition: {x: -0.45569944, y: 0.5627132, z: 1.1139399}
+  m_LocalPosition: {x: -0.639, y: 0.922, z: 1.612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1480,7 +1484,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 20
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -2079,8 +2083,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8342294685521068987}
   - component: {fileID: 4430769557326949529}
-  - component: {fileID: 4019658700456312339}
-  - component: {fileID: 2891590947291475356}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -2115,55 +2117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4019658700456312339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402259817415507551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
-  m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_CenterOnActivate: 1
---- !u!114 &2891590947291475356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402259817415507551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!1 &6800522802297295332
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,7 +3566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485552, guid: c6de9c3e430816d40aedcaaf84000975, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.015000008
+      value: 0.015000105
       objectReference: {fileID: 0}
     - target: {fileID: 485552, guid: c6de9c3e430816d40aedcaaf84000975, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3694,7 +3647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 449218, guid: 8b859f6ed5d97694fb9e41bab73b55ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.017000005
+      value: 0.01699996
       objectReference: {fileID: 0}
     - target: {fileID: 449218, guid: 8b859f6ed5d97694fb9e41bab73b55ff, type: 3}
       propertyPath: m_LocalRotation.w

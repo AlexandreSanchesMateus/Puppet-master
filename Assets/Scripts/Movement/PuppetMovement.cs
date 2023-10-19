@@ -1,12 +1,13 @@
 using NaughtyAttributes;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using UnityEngine.InputSystem;
 
-public class PuppetMovement : MonoBehaviour
+public class PuppetMovement : MonoBehaviour, IMovable
 {
     [SerializeField, BoxGroup("Dependencies")] private PuppetPhysic _puppetPhysic;
+    [SerializeField, BoxGroup("Dependencies")] private PlayerInput _inputBrain;
 
     [SerializeField, BoxGroup("Settings")] private Transform _camera;
     [SerializeField, BoxGroup("Settings")] private float _movementSpeed;
@@ -235,5 +236,54 @@ public class PuppetMovement : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void MovePlayerTo(Vector3 position, float speed, bool disableInputs = true)
+    {
+        if(disableInputs)
+            EnableInput(false);
+
+        // Reset leg
+        _legsState.Item1 = ELegState.NEUTRAL;
+        _legsState.Item2 = ELegState.NEUTRAL;
+        _verticalMovement = EVerticalMovement.STOP;
+
+        // Stop Coroutines
+        if(_inputCoroutine != null)
+            StopCoroutine(_inputCoroutine);
+
+        if(_LCoroutine != null)
+            StopCoroutine(_LCoroutine);
+
+        if(_RCoroutine != null)
+            StopCoroutine(_RCoroutine);
+
+        if(_TurnCoroutine != null)
+            StopCoroutine(_TurnCoroutine);
+
+        // Movement
+        StartCoroutine(MoveTo(position, speed));
+    }
+
+    public void EnableInput(bool enable) => _inputBrain.enabled = enable;
+
+    private IEnumerator MoveTo(Vector3 position, float speed)
+    {
+        Vector3 Direction = Vector3.one;
+        do
+        {
+            Direction = new Vector3(position.x, 0, position.z) - new Vector3(_puppetPhysic.GetHipsPosition.x, 0, _puppetPhysic.GetHipsPosition.z);
+            _puppetPhysic.Movement = Direction.normalized * speed;
+            Debug.Log("moving");
+            yield return null;
+        }
+        while (Direction.magnitude >= 0.05f);
+
+        yield return null;
+        Direction = new Vector3(position.x, 0, position.z) - new Vector3(_puppetPhysic.GetHipsPosition.x, 0, _puppetPhysic.GetHipsPosition.z);
+        _puppetPhysic.Movement = Direction.normalized * speed;
+
+        yield return null;
+        _puppetPhysic.Movement = Vector3.zero;
     }
 }

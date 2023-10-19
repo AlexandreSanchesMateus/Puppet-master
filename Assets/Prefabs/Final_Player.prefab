@@ -210,9 +210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _puppetPhysic: {fileID: 8930303217643065200}
+  _inputBrain: {fileID: 3619998469014686193}
   _camera: {fileID: 0}
   _movementSpeed: 120
-  _turnSpeed: 13
+  _turnSpeed: 30
   _detectionTurnTime: 1.5
   _stopInputTime: 1.2
   _rightLeg: {fileID: 1133581661272580578}
@@ -663,7 +664,7 @@ GameObject:
   - component: {fileID: 5354283818568423955}
   m_Layer: 7
   m_Name: mixamorig:LeftForeArm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -793,7 +794,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 1577407945024796574}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -879,7 +881,7 @@ GameObject:
   - component: {fileID: 8746030160457311195}
   m_Layer: 6
   m_Name: mixamorig:LeftLeg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1008,7 +1010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 1036461231835046948}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -1094,7 +1097,7 @@ GameObject:
   - component: {fileID: 6064658610686441809}
   m_Layer: 6
   m_Name: mixamorig:Spine1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1222,7 +1225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 6584389946216736652}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -2006,7 +2010,7 @@ GameObject:
   - component: {fileID: 4115647986618576465}
   m_Layer: 6
   m_Name: mixamorig:LeftUpLeg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2135,7 +2139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 5066871829668485243}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -2190,7 +2195,7 @@ GameObject:
   - component: {fileID: 6579084721862281795}
   m_Layer: 7
   m_Name: mixamorig:RightForeArm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2319,7 +2324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 3667965546397661609}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -2748,7 +2754,7 @@ GameObject:
   - component: {fileID: 2007697540248126966}
   m_Layer: 6
   m_Name: mixamorig:RightArm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2877,7 +2883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 6774932541993149416}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -3277,7 +3284,7 @@ GameObject:
   - component: {fileID: 4115588986413579978}
   m_Layer: 6
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3360,7 +3367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 8339820225788286124}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -3824,7 +3832,7 @@ GameObject:
   - component: {fileID: 2101050295558104615}
   m_Layer: 6
   m_Name: mixamorig:RightUpLeg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3953,7 +3961,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 1431934944482948961}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -3976,7 +3985,7 @@ GameObject:
   - component: {fileID: 2148936738562986833}
   m_Layer: 6
   m_Name: mixamorig:LeftArm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4105,7 +4114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 9170456853676105257}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -4666,7 +4676,7 @@ GameObject:
   - component: {fileID: 5718060549009400831}
   m_Layer: 6
   m_Name: mixamorig:Head
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4793,7 +4803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 914029200095366254}
   m_damageMultiply: 1
   m_minDamage: 1
@@ -4878,7 +4889,7 @@ GameObject:
   - component: {fileID: 2748180374295613388}
   m_Layer: 6
   m_Name: mixamorig:RightLeg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5007,7 +5018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2679ec15b5b03f8448ca3172e8b50ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _score: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
+  _movement: {fileID: 4843688636559156917}
   m_limbRigidbody: {fileID: 1765221270622659183}
   m_damageMultiply: 1
   m_minDamage: 1

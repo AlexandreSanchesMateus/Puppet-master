@@ -6,9 +6,11 @@ using UnityEngine.Events;
 
 namespace Game
 {
-    public class ScoreProxy : MonoBehaviour, IDamageable
+    public class ScoreProxy : MonoBehaviour, IDamageable, IMovable
     {
-        [SerializeField, BoxGroup("Setup"), Required] ScoreReference _target;
+        [SerializeField, BoxGroup("Dependencies"), Required] ScoreReference _score;
+        [SerializeField, BoxGroup("Dependencies"), Required] PuppetMovement _movement;
+
         [SerializeField, BoxGroup("Setup")] private Rigidbody m_limbRigidbody;
 
         [SerializeField, BoxGroup("settings")] private float m_damageMultiply = 1f;
@@ -19,7 +21,7 @@ namespace Game
 
         public void TakeDamage(int amount)
         {
-            _target.Instance.AddScore(amount);
+            _score.Instance.AddScore(amount);
             m_onTakeDamage?.Invoke();
         }
 
@@ -60,14 +62,14 @@ namespace Game
             float thisVelocity = m_limbRigidbody.velocity.magnitude;
             float otherVelocity = _rigidbody.velocity.magnitude;
 
-            _target.Instance.AddScore(CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1"));
-			_target.Instance.AddScore(CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2"));
+            _score.Instance.AddScore(CalculateDamageBaseOnSpeed(thisVelocity, "OnCollideWithRigidbody 1"));
+			_score.Instance.AddScore(CalculateDamageBaseOnSpeed(otherVelocity, "OnCollideWithRigidbody 2"));
         }
 
         private void OnCollideWithCollider(Collider _collider)
         {
             float relativeSpeed = m_limbRigidbody.velocity.magnitude;
-			_target.Instance.AddScore(CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider"));
+			_score.Instance.AddScore(CalculateDamageBaseOnSpeed(relativeSpeed, "OnCollideWithCollider"));
         }
 
         private int CalculateDamageBaseOnSpeed(float _relativeSpeed, string _name)
@@ -79,5 +81,9 @@ namespace Game
 
             return Mathf.Min(damages, m_maxDamage);
         }
+
+        public void MovePlayerTo(Vector3 position, float speed, bool disableInputs = true) => _movement.MovePlayerTo(position, speed, disableInputs);
+
+        public void EnableInput(bool enable) => _movement.EnableInput(enable);
     }
 }
