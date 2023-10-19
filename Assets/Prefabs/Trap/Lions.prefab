@@ -83,7 +83,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 20
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -853,8 +853,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4010416714409360685}
-  - component: {fileID: 8475870229241546860}
-  - component: {fileID: 651004860277407905}
   - component: {fileID: 6056377310163874518}
   - component: {fileID: 1864787640553743279}
   - component: {fileID: 1160284524542337911}
@@ -881,56 +879,6 @@ Transform:
   - {fileID: 4943123931993715774}
   m_Father: {fileID: 1002645097077209257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8475870229241546860
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060785032100314333}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &651004860277407905
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060785032100314333}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6056377310163874518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,26 +891,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8ed5f5562249d48bd691708c87f1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
-  m_model: {fileID: 0}
+  m_onTrapActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_scoreReference: {fileID: 0}
   m_scoreGain: 2500
   m_scoreLeftToGain: 0
   _camera: {fileID: 5208341079292611777}
-  OnActivate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2708770243104679463}
-        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
-        m_MethodName: PlayFeedbacks
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _physic: {fileID: 0}
+  _impulseForce: 20
+  _impulseDirection: {x: 0, y: 0, z: 0}
 --- !u!65 &1864787640553743279
 BoxCollider:
   m_ObjectHideFlags: 0

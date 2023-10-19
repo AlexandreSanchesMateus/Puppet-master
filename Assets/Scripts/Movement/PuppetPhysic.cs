@@ -23,13 +23,12 @@ public class PuppetPhysic : MonoBehaviour
     [SerializeField, Foldout("Event")] private UnityEvent _onPuppetFullyRecover;
 
     public Vector3 Movement { get; set; } = Vector2.zero;
-    public Vector3 Direction { get; set; } = Vector3.zero;
+    public Vector3 GetHipsPosition => _downRb.transform.position;
 
     private float _timer;
-
     private EPuppetPhysic _state = EPuppetPhysic.NOT_GROUNDED;
 
-    private enum EPuppetPhysic
+    public enum EPuppetPhysic
     {
         STANDING,
         NOT_GROUNDED,
@@ -114,12 +113,19 @@ public class PuppetPhysic : MonoBehaviour
     {
         if(Vector3.Dot(Vector3.up, _applyPoint.up) <= 0.2f)
         {
-            _state = EPuppetPhysic.DISABLE;
-            _balanceManager.EnableBalance(false);
-            _headManager.EnableBalance(false);
-            _interactionManager.EnableleInteraction(false);
-            _onPuppetDisable?.Invoke();
-            _timer = 0;
+            DisablePhysic();
         }
+    }
+
+    public void SetPuppetPhysicToDisable() => DisablePhysic();
+    
+    private void DisablePhysic()
+    {
+        _state = EPuppetPhysic.DISABLE;
+        _balanceManager.EnableBalance(false);
+        _headManager.EnableBalance(false);
+        _interactionManager.EnableleInteraction(false);
+        _onPuppetDisable?.Invoke();
+        _timer = 0;
     }
 }

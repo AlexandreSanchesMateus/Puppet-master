@@ -30,7 +30,7 @@ public class CombustionTrap : Trap, ICutable
 
 	private Vector3 m_fallingLampBasePos;
 
-	protected override void Awake()
+	private void Awake()
 	{
 		m_fallingLampBasePos = m_fallingLamp.transform.position;
 	}

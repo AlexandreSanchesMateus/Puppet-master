@@ -9,6 +9,7 @@ public class EnclumeTrap : Trap
 {
     [SerializeField, BoxGroup("Settings")] private float _explosionDelay;
     [SerializeField, BoxGroup("Settings")] private float _explosionForce;
+    [SerializeField, BoxGroup("Settings")] private PuppetPhysic _physic;
     [SerializeField, BoxGroup("Settings")] private Physics3DInteraction _interaction;
     [SerializeField, BoxGroup("Settings")] private float _activeRadius;
 
@@ -73,6 +74,7 @@ public class EnclumeTrap : Trap
     public override void Activate()
     {
         InflictFullDamageToPlayer();
+        _physic.SetPuppetPhysicToDisable();
 
         // Add force
         foreach (Collider info in _collidersIn)
