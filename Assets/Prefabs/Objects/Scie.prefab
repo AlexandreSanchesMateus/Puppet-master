@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973977432791455897}
-  - component: {fileID: 4882861571732388888}
+  - component: {fileID: -8346654168126013095}
   - component: {fileID: 3545162331059796020}
   - component: {fileID: 4446190325283947097}
   - component: {fileID: 1788650203596537684}
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 3238539095834050527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4882861571732388888
+--- !u!114 &-8346654168126013095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1704646015293163787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678b90623da74ca449a9ee1f8ca091a5, type: 3}
+  m_Script: {fileID: 11500000, guid: bc12bece990d0fb4089a4c8655a017da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnCut:
@@ -66,7 +66,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_rigidbody: {fileID: 4446190325283947097}
-  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
   m_damage: 10
 --- !u!65 &3545162331059796020
 BoxCollider:
