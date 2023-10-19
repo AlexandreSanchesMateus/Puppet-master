@@ -53,7 +53,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a0257f327dd7f754aa91a8cec54b2eef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -871,22 +871,22 @@ PrefabInstance:
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.903
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.11829138
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.151
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.82338405
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
@@ -896,7 +896,7 @@ PrefabInstance:
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.5674846
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
@@ -911,7 +911,7 @@ PrefabInstance:
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -69.15
       objectReference: {fileID: 0}
     - target: {fileID: 288534180499182329, guid: b916ecf178423e74083e3ace7e0a1e80,
         type: 3}
@@ -959,12 +959,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6948669553301113046}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4556276919290654122 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6869545873843725692, guid: b916ecf178423e74083e3ace7e0a1e80,
-    type: 3}
-  m_PrefabInstance: {fileID: 6948669553301113046}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6824347814669472836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4529026978757713042, guid: b916ecf178423e74083e3ace7e0a1e80,
@@ -987,7 +981,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_scoreReference: {fileID: 0}
-  m_model: {fileID: 4556276919290654122}
   m_scoreGain: 3000
   m_scoreLeftToGain: 0
   m_flameToActivate: {fileID: 4260027645715776135}

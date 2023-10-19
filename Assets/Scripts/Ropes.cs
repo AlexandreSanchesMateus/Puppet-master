@@ -5,6 +5,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 public class Ropes : MonoBehaviour
 {
@@ -21,30 +22,43 @@ public class Ropes : MonoBehaviour
     [SerializeField, OnValueChanged("Check")] private CutRope _topLink;
     public CutRope TopLink => _topLink;
 
-    public void DisablePlateform()
+    public bool HasBeenCut => m_hasBeenCut;
+    private bool m_hasBeenCut;
+
+    public void DestroyAfterTime()
     {
-	    Vector3 posToFall = new Vector3(m_topRope.transform.position.x, 0, m_topRope.transform.position.z);
+	    if (m_hasBeenCut)
+		    return;
+
+	    DisablePlatform();
+
+		onCut?.Invoke();
+
+	    m_hasBeenCut = true;
+
+		StartCoroutine(DestroyAfterTime(5f));
+	}
+    public void DisablePlatform()
+    {
+		Vector3 posToFall = new Vector3(m_topRope.transform.position.x, 0, m_topRope.transform.position.z);
 	    m_topRope.transform.DOMove(posToFall, 1.5f).SetEase(Ease.InExpo);
 	    m_plateform.SetActive(false);
 	}
 
-    public void DestroyAfterTime()
-    {
-	    if (onCut == null)
-	    {
-		    Debug.Log("qd");
-	    }
-	    onCut?.Invoke();
-
-		StartCoroutine(DestroyAfterTime(5f));
-	}
-
 	private IEnumerator DestroyAfterTime(float _delay)
     {
-		yield return new WaitForSeconds(_delay);
-
 		this.transform.parent = null;
-		//Destroy(this.gameObject);
+
+	    yield return new WaitForSeconds(2);
+
+		foreach (CutRope cutRope in _gameObjects)
+	    {
+		    if (cutRope.Rigidbody) cutRope.Rigidbody.drag = 100;
+	    }
+
+		yield return new WaitForSeconds(_delay - 2f);
+
+		Destroy(this.gameObject);
     }
 
     void Check()
