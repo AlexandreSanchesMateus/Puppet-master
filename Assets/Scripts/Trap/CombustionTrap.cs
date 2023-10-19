@@ -28,6 +28,10 @@ public class CombustionTrap : Trap, ICutable
 	[Foldout("Event")] public UnityEvent onPlayerTriggerExit;
 	[Foldout("Event")] public UnityEvent onPlayerDamage;
 
+	[SerializeField, BoxGroup("Rope")] private Ropes m_ropePrefab;
+	[SerializeField, BoxGroup("Rope")] private Ropes m_currentRopes;
+	[SerializeField, BoxGroup("Rope")] private Transform m_ropeSpawn;
+
 	private Vector3 m_fallingLampBasePos;
 
 	protected override void Awake()
@@ -50,6 +54,8 @@ public class CombustionTrap : Trap, ICutable
 		};
 
 		m_physics3DInteraction.TriggerExit3D += StopFireDamage;
+
+		m_currentRopes.onCut += Cut;
 	}
 
 	protected override void Init()
@@ -64,6 +70,8 @@ public class CombustionTrap : Trap, ICutable
 		m_fireDurationLeft = m_fireDurationLeftDefault;
 
 		m_isPlayerInFire = false;
+
+		m_currentRopes.onCut += Cut;
 	}
 
 	private void StopFireDamage ( Collider _collider)
@@ -115,6 +123,9 @@ public class CombustionTrap : Trap, ICutable
 		Vector3 defaultScale = m_fallingLamp.transform.localScale;
 
 		m_fallingLamp.transform.DOScale(defaultScale, 0.3f).From(0);
+
+		m_currentRopes = Instantiate(m_ropePrefab, m_ropeSpawn.position, Quaternion.identity, m_ropeSpawn);
+		m_currentRopes.onCut += Cut;
 
 		onResetTrap?.Invoke();
 	}
