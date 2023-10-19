@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Game;
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.UI.CanvasScaler;
 
 public class CombustionTrap : Trap, ICutable
 {
