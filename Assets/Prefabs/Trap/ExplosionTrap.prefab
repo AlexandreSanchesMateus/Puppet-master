@@ -88,7 +88,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_scoreReference: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
-  m_scoreGain: 10
+  m_scoreGain: 5500
   m_scoreLeftToGain: 0
   _explosionDelay: 0.5
   _explosionForce: 20

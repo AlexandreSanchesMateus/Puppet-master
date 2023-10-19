@@ -27,7 +27,7 @@ namespace Game
             if (amount <= 0) return;
 
             score += amount;
-            _scoreTxt.text = string.Format(score.ToString(), "D6");
+            _scoreTxt.text = string.Format(score.ToString(), "D5");
             _onScoreIncrease?.Invoke();
         }
     }

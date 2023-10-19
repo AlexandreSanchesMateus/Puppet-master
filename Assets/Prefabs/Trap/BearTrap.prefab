@@ -147,8 +147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8250623135777469696}
-  - component: {fileID: 4420925021009095875}
-  - component: {fileID: 6755499610294251287}
   - component: {fileID: 1759451007920664740}
   - component: {fileID: 8761744208248645533}
   m_Layer: 9
@@ -173,56 +171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3332384003375395186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4420925021009095875
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495976940045641292}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6755499610294251287
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495976940045641292}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1759451007920664740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,13 +199,13 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_scoreReference: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
-  m_scoreGain: 0
+  m_scoreGain: 2500
   m_scoreLeftToGain: 0
   _camera: {fileID: 2038780379142371289}
   _firstPart: {fileID: 2142271026650086892}
   _secondPart: {fileID: 646495383767724122}
   _physic: {fileID: 0}
-  _impulseForce: 2
+  _impulseForce: 40
   _colliders:
   - {fileID: 1600453823882232781}
   - {fileID: 2313351035898547450}
@@ -522,7 +470,7 @@ Transform:
   m_GameObject: {fileID: 5404416391081023510}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0.019}
+  m_LocalPosition: {x: -0, y: 0, z: 0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -756,7 +704,7 @@ Transform:
   m_GameObject: {fileID: 6447421861614105294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1171,7 +1119,7 @@ MonoBehaviour:
         Owner: {fileID: 3436914381066522969}
         DebugActive: 0
         Velocity: {x: 0, y: 0.1, z: 0}
-        ImpulseSource: {fileID: 0}
+        ImpulseSource: {fileID: 4535503389874563824}
         ClearImpulseOnStop: 0
     - rid: 5376107531750866946
       type: {class: MMF_Particles, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks}
@@ -1823,7 +1771,7 @@ Transform:
   m_GameObject: {fileID: 8474098272525559513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.019}
+  m_LocalPosition: {x: 0, y: 0, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1921,7 +1869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485552, guid: c6de9c3e430816d40aedcaaf84000975, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.122164465
+      value: -0.025
       objectReference: {fileID: 0}
     - target: {fileID: 485552, guid: c6de9c3e430816d40aedcaaf84000975, type: 3}
       propertyPath: m_LocalPosition.z

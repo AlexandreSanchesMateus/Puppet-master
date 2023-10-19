@@ -32,16 +32,19 @@ public class BearTrap : Trap
 
         Sequence mySequence = DOTween.Sequence();
         mySequence.AppendInterval(0.2f);
-        mySequence.Append(_firstPart.DOLocalRotate(new Vector3(0, 0, 90),0.20f,RotateMode.Fast));
-        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(0, -180, 90), 0.20f, RotateMode.Fast).OnComplete(()=> m_onTrapActivate?.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
+        mySequence.Append(_firstPart.DOLocalRotate(new Vector3(0, -90, 90),0.20f,RotateMode.Fast));
+        mySequence.Join(_secondPart.DOLocalRotate(new Vector3(90, 0, 0), 0.20f, RotateMode.Fast).OnComplete(()=> m_onTrapActivate?.Invoke()).OnComplete(()=> InflictFullDamageToPlayer()));
         
         StartCoroutine(launchPlayer());
 
         IEnumerator launchPlayer()
         {
             yield return new WaitForSeconds(5f);
+            _colliders.ForEach(c => c.enabled = false);
             rb.AddForce(transform.forward * _impulseForce, ForceMode.Impulse);
             _camera.gameObject.SetActive(false);
+            yield return new WaitForSeconds(1f);
+            _colliders.ForEach(c => c.enabled = true);
         }
     }
 }
