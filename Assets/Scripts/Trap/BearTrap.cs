@@ -40,9 +40,9 @@ public class BearTrap : Trap
         IEnumerator launchPlayer()
         {
             yield return new WaitForSeconds(5f);
+            _camera.gameObject.SetActive(false);
             _colliders.ForEach(c => c.enabled = false);
             rb.AddForce(transform.forward * _impulseForce, ForceMode.Impulse);
-            _camera.gameObject.SetActive(false);
         }
     }
 }

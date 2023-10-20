@@ -60,6 +60,9 @@ public class PuppetMovement : MonoBehaviour, IMovable
                 _legsState.Item2 = ELegState.TURN;
                 _currentCount = 0;
 
+                if (_TurnCoroutine != null)
+                    StopCoroutine(_TurnCoroutine);
+
                 _TurnCoroutine = StartCoroutine(TurnCamera(true));
                 _puppetPhysic.Movement = Vector3.zero;
 
@@ -145,6 +148,10 @@ public class PuppetMovement : MonoBehaviour, IMovable
                 _currentCount = 0;
 
                 _puppetPhysic.Movement = Vector3.zero;
+
+                if (_TurnCoroutine != null)
+                    StopCoroutine(_TurnCoroutine);
+
                 _TurnCoroutine = StartCoroutine(TurnCamera(false));
                 CheckForInput2();
 
