@@ -15,6 +15,8 @@ public class PuppetMovement : MonoBehaviour, IMovable
 
     [SerializeField, BoxGroup("Settings")] private float _detectionTurnTime;
     [SerializeField, BoxGroup("Settings")] private float _stopInputTime;
+    [SerializeField, BoxGroup("Settings")] private int _nbInputToCount;
+    private int _currentCount;
 
     [SerializeField, BoxGroup("Leg Settings")] private Leg _rightLeg;
     [SerializeField, BoxGroup("Leg Settings")] private Leg _leftLeg;
@@ -25,13 +27,14 @@ public class PuppetMovement : MonoBehaviour, IMovable
     private EVerticalMovement _verticalMovement;
 
     private Coroutine _inputCoroutine = null;
+    private Coroutine _legAnimation = null;
 
     private Coroutine _RCoroutine = null;
     private Coroutine _LCoroutine = null;
 
     private Coroutine _TurnCoroutine = null;
 
-    
+
     public enum EVerticalMovement
     {
         STOP,
@@ -49,7 +52,56 @@ public class PuppetMovement : MonoBehaviour, IMovable
 
     public void SetRightLegValue(Vector2 value)
     {
-        if(value == Vector2.up)
+        if (value == Vector2.up)
+        {
+            _RCoroutine = StartCoroutine(StartTimer(_detectionTurnTime, () =>
+            {
+                _verticalMovement = EVerticalMovement.STOP;
+                _legsState.Item2 = ELegState.TURN;
+                _currentCount = 0;
+
+                _TurnCoroutine = StartCoroutine(TurnCamera(true));
+                _puppetPhysic.Movement = Vector3.zero;
+
+                if (_legAnimation != null)
+                    StopCoroutine(_legAnimation);
+
+                CheckForInput2();
+            }));
+        }
+        else
+        {
+            _legsState.Item2 = ELegState.NEUTRAL;
+
+            if (_RCoroutine != null)
+                StopCoroutine(_RCoroutine);
+
+            if(_TurnCoroutine != null)
+                StopCoroutine(_TurnCoroutine);
+        }
+
+        if (value != Vector2.zero)
+        {
+            _currentCount = Mathf.Min(++_currentCount, _nbInputToCount + 1);
+
+            if (_inputCoroutine != null)
+                StopCoroutine(_inputCoroutine);
+
+            _inputCoroutine = StartCoroutine(StartTimer(_stopInputTime, () =>
+            {
+                _verticalMovement = EVerticalMovement.STOP;
+                _currentCount = 0;
+                _puppetPhysic.Movement = Vector3.zero;
+                CheckForInput2();
+
+                if (_legAnimation != null)
+                    StopCoroutine(_legAnimation);
+            }));
+
+            CheckForInput2();
+        }
+
+        /*if(value == Vector2.up)
         {
             _legsState.Item2 = ELegState.FORWARD;
 
@@ -79,12 +131,60 @@ public class PuppetMovement : MonoBehaviour, IMovable
                 StopCoroutine(_RCoroutine);
         }
         
-        CheckMovementInput();
+        CheckMovementInput();*/
     }
 
     public void SetLeftLegValue(Vector2 value)
     {
         if (value == Vector2.up)
+        {
+            _LCoroutine = StartCoroutine(StartTimer(_detectionTurnTime, () =>
+            {
+                _verticalMovement = EVerticalMovement.STOP;
+                _legsState.Item1 = ELegState.TURN;
+                _currentCount = 0;
+
+                _puppetPhysic.Movement = Vector3.zero;
+                _TurnCoroutine = StartCoroutine(TurnCamera(false));
+                CheckForInput2();
+
+                if (_legAnimation != null)
+                    StopCoroutine(_legAnimation);
+            }));
+        }
+        else
+        {
+            _legsState.Item1 = ELegState.NEUTRAL;
+
+            if (_LCoroutine != null)
+                StopCoroutine(_LCoroutine);
+
+            if (_TurnCoroutine != null)
+                StopCoroutine(_TurnCoroutine);
+        }
+
+        if(value != Vector2.zero)
+        {
+            _currentCount = Mathf.Min(++_currentCount , _nbInputToCount + 1);
+
+            if (_inputCoroutine != null)
+                StopCoroutine(_inputCoroutine);
+
+            _inputCoroutine = StartCoroutine(StartTimer(_stopInputTime, () => {
+                _verticalMovement = EVerticalMovement.STOP;
+                _currentCount = 0;
+                _puppetPhysic.Movement = Vector3.zero;
+                CheckForInput2();
+
+                if (_legAnimation != null)
+                    StopCoroutine(_legAnimation);
+
+            }));
+
+            CheckForInput2();
+        }
+
+        /*if (value == Vector2.up)
         {
             _legsState.Item1 = ELegState.FORWARD;
 
@@ -115,7 +215,7 @@ public class PuppetMovement : MonoBehaviour, IMovable
                 StopCoroutine(_LCoroutine);
         }
 
-        CheckMovementInput();
+        CheckMovementInput();*/
     }
 
     private void CheckMovementInput()
@@ -165,6 +265,49 @@ public class PuppetMovement : MonoBehaviour, IMovable
         }
     }
     
+    private void CheckForInput2()
+    {
+        switch (_verticalMovement)
+        {
+            case EVerticalMovement.STOP:
+                Debug.Log("ddebug");
+
+                if (_currentCount >= _nbInputToCount)
+                {
+                    _verticalMovement = EVerticalMovement.FORWARD;
+
+                    _legAnimation = StartCoroutine(LegAnimation());
+
+                    if (_inputCoroutine != null)
+                        StopCoroutine(_inputCoroutine);
+
+                    _inputCoroutine = StartCoroutine(StartTimer(_stopInputTime, () => {
+                        _verticalMovement = EVerticalMovement.STOP;
+                        _currentCount = 0;
+                        _puppetPhysic.Movement = Vector3.zero;
+
+                        if (_legAnimation != null)
+                            StopCoroutine(_legAnimation);
+                    }));
+
+                    // break;
+                }
+
+                /*if (_legAnimation != null)
+                    StopCoroutine(_legAnimation);*/
+
+                break;
+
+            case EVerticalMovement.FORWARD:
+
+                if (_TurnCoroutine != null)
+                    StopCoroutine(_TurnCoroutine);
+
+                _puppetPhysic.Movement = new Vector3(_camera.forward.x, 0, _camera.forward.z).normalized * _movementSpeed;
+                break;
+        }
+    }
+
     private IEnumerator StartTimer(float exitTime, Action onFinish)
     {
         float timer = 0;
@@ -176,6 +319,21 @@ public class PuppetMovement : MonoBehaviour, IMovable
         }
 
         onFinish?.Invoke();
+    }
+
+    private IEnumerator LegAnimation()
+    {
+        while (_legsState.Item1 != ELegState.TURN && _legsState.Item2 != ELegState.TURN)
+        {
+            _legsState.Item1 = ELegState.FORWARD;
+            _legsState.Item2 = ELegState.BACKWARD;
+            UpdateLegsImpulse();
+            yield return new WaitForSeconds(0.5f);
+            _legsState.Item1 = ELegState.BACKWARD;
+            _legsState.Item2 = ELegState.FORWARD;
+            UpdateLegsImpulse();
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private IEnumerator TurnCamera(bool turnLeft)
@@ -249,6 +407,9 @@ public class PuppetMovement : MonoBehaviour, IMovable
         _verticalMovement = EVerticalMovement.STOP;
 
         // Stop Coroutines
+        if (_legAnimation != null)
+            StopCoroutine(_legAnimation);
+
         if(_inputCoroutine != null)
             StopCoroutine(_inputCoroutine);
 

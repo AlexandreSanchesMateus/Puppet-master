@@ -43,8 +43,6 @@ public class BearTrap : Trap
             _colliders.ForEach(c => c.enabled = false);
             rb.AddForce(transform.forward * _impulseForce, ForceMode.Impulse);
             _camera.gameObject.SetActive(false);
-            yield return new WaitForSeconds(1f);
-            _colliders.ForEach(c => c.enabled = true);
         }
     }
 }

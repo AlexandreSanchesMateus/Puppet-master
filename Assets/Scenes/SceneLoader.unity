@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000004, guid: 23838520f16623a488e309ecc36c22fd,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -154,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loaderAnimator: {fileID: 1299350761}
   _transitionTime: 1.1
-  _waitingTime: 0.2
+  _waitingTime: 0
   _onSceneFullyLoaded:
     m_PersistentCalls:
       m_Calls: []

@@ -214,8 +214,9 @@ MonoBehaviour:
   _camera: {fileID: 0}
   _movementSpeed: 120
   _turnSpeed: 30
-  _detectionTurnTime: 1.1
+  _detectionTurnTime: 0.8
   _stopInputTime: 1
+  _nbInputToCount: 4
   _rightLeg: {fileID: 1133581661272580578}
   _leftLeg: {fileID: 1209299928663401518}
 --- !u!114 &5172149196408298618
