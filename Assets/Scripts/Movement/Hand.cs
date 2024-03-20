@@ -13,7 +13,8 @@ public class Hand : MonoBehaviour
 
     public void Start()
     {
-	    if (m_sphereCollider.enabled) m_sphereCollider.enabled = false;
+	    if (m_sphereCollider.enabled)
+            m_sphereCollider.enabled = false;
 	}
 
     public void Interact()
@@ -34,6 +35,7 @@ public class Hand : MonoBehaviour
 
 		m_sphereCollider.enabled = true;
     }
+
     private void ReleaseObject()
     {
         m_sphereCollider.enabled = false;
@@ -48,10 +50,16 @@ public class Hand : MonoBehaviour
     {
 	    if (_collider.gameObject.TryGetComponent(out IPickable pickUp))
 	    {
-		    _currentObject = pickUp;
+            if (pickUp != null)
+            {
+                if (_collider.gameObject.TryGetComponent(out Weapons weapon) && weapon.m_isWield)
+                    return;
 
-			pickUp.Take(m_weaponHolder);
-		    m_sphereCollider.enabled = false;
+                _currentObject = pickUp;
+
+                pickUp.Take(m_weaponHolder);
+                m_sphereCollider.enabled = false;
+            }
 		}
 	}
 }

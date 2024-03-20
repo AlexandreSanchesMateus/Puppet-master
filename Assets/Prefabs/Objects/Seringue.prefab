@@ -52,8 +52,7 @@ MonoBehaviour:
   m_onTrapActivate:
     m_PersistentCalls:
       m_Calls: []
-  m_playerReference: {fileID: 11400000, guid: a17ad5991bc00fc41991e8b0cba566bf, type: 2}
-  m_model: {fileID: 1197918297832447170}
+  m_scoreReference: {fileID: 11400000, guid: f8680d94d0c346e46bcdd422a3f8e63a, type: 2}
   m_scoreGain: 100
   m_scoreLeftToGain: 0
   OnActivate:
@@ -94,7 +93,7 @@ CapsuleCollider:
   m_Radius: 0.0105006695
   m_Height: 0.15411022
   m_Direction: 1
-  m_Center: {x: 0.01794672, y: -0.005142227, z: 0}
+  m_Center: {x: 0.01794672, y: 0.1, z: 0}
 --- !u!54 &7861393801894012090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -746,12 +745,6 @@ PrefabInstance:
 --- !u!4 &1197918297832118890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 449218, guid: 22e35da3d2c81274bb1c8fd73cca399e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1197918297832521896}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1197918297832447170 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 121962, guid: 22e35da3d2c81274bb1c8fd73cca399e,
     type: 3}
   m_PrefabInstance: {fileID: 1197918297832521896}
   m_PrefabAsset: {fileID: 0}

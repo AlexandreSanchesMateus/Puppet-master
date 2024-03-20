@@ -2,6 +2,7 @@ using Game;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 public class Seringue_Object : Trap, IPickable
 {
@@ -9,7 +10,16 @@ public class Seringue_Object : Trap, IPickable
 
     [SerializeField, Required] private Rigidbody m_rigidbody;
 
-	private void OnCollisionEnter(Collision collision)
+
+    private Vector3 m_starterPoint;
+
+    protected override void Start()
+    {
+        base.Start();
+        m_starterPoint = transform.position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
@@ -18,7 +28,12 @@ public class Seringue_Object : Trap, IPickable
         }
     }
 
-	public void Take ( Transform parent )
+	public void ResetToOriginPosition()
+	{
+        transform.position = m_starterPoint;
+	}
+
+    public void Take ( Transform parent )
 	{
 		transform.SetParent(parent);
 

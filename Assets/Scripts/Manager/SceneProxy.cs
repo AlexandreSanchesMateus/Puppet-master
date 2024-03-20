@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class SceneProxy : MonoBehaviour
 {
+    private bool pressed = false;
+
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !pressed)
         {
+            pressed = true;
             SceneLoader.LoadGameScene();
         }
     }

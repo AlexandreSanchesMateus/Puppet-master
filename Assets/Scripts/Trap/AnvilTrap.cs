@@ -8,7 +8,6 @@ public class AnvilTrap : Trap, ICutable
 {
 	[SerializeField, BoxGroup("References")] private GameObject m_fallingLamp;
 
-	[SerializeField, BoxGroup("Settings")] private float m_lampFallDuration = 1.5f;
 	[SerializeField, BoxGroup("Settings")] private float m_timeBetweenTickDefault = 1f;
 	[SerializeField, BoxGroup("Settings"), ReadOnly] private float m_timeBetweenTick = 0;
 	[SerializeField, BoxGroup("Settings")] private float m_fireDurationLeftDefault = 6f;

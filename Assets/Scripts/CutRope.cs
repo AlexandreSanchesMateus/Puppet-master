@@ -8,8 +8,6 @@ public class CutRope : MonoBehaviour, ICutable
 	[SerializeField] private Rigidbody m_rigidbody;
 	public Rigidbody Rigidbody => m_rigidbody;
 
-	int index = 0;
-
 	private void Start ()
 	{
 		m_rigidbody.velocity = Vector3.zero;

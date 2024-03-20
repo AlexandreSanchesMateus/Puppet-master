@@ -10,13 +10,32 @@ public class Weapons : MonoBehaviour, IPickable
 {
     public UnityEvent OnCut;
 
-    [SerializeField, Required] protected Rigidbody m_rigidbody;
+    [HideInInspector]
+    public bool m_isWield { get; private set; } = false;
 
-    [SerializeField, BoxGroup("Settings")] protected int m_damage = 10;
+    [SerializeField, Required]
+    protected Rigidbody m_rigidbody;
 
-	public void Take(Transform parent)
+    [SerializeField, BoxGroup("Settings")]
+    protected int m_damage = 10;
+
+    private Vector3 m_starterPoint;
+
+    private void Start()
+    {
+        m_starterPoint = transform.position;
+    }
+
+    public void ResetToOriginPosition()
+    {
+        transform.position = m_starterPoint;
+    }
+
+    public void Take(Transform parent)
 	{
 		transform.SetParent(parent);
+
+        m_isWield = true;
 
         transform.transform.position = parent.transform.position;
         transform.localRotation = Quaternion.identity;
@@ -28,9 +47,12 @@ public class Weapons : MonoBehaviour, IPickable
     {
         transform.SetParent(null);
 
+        m_isWield = false;
+
         m_rigidbody.useGravity = true;
         m_rigidbody.isKinematic = false;
 	}
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
 		if (collision.gameObject.TryGetComponent(out IDamageable health))
@@ -53,7 +75,6 @@ public class Weapons : MonoBehaviour, IPickable
 		    m_rigidbody.velocity = Vector3.zero;
 		}
     }
-
 
 	[Button]
     public void DebugCut()
