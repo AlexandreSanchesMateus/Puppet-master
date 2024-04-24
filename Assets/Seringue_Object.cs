@@ -8,6 +8,9 @@ public class Seringue_Object : Trap, IPickable
 {
     public UnityEvent OnActivate;
 
+    [HideInInspector]
+    public bool is_wield;
+
     [SerializeField, Required] private Rigidbody m_rigidbody;
 
 
@@ -35,7 +38,9 @@ public class Seringue_Object : Trap, IPickable
 
     public void Take ( Transform parent )
 	{
-		transform.SetParent(parent);
+        is_wield = true;
+
+        transform.SetParent(parent);
 
 		transform.transform.position = parent.transform.position;
 		transform.localRotation = Quaternion.identity;
@@ -45,6 +50,7 @@ public class Seringue_Object : Trap, IPickable
 
 	public void Release ()
     {
+        is_wield = false;
 	    transform.SetParent(null);
 
 	    m_rigidbody.useGravity = true;

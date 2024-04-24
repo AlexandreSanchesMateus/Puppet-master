@@ -54,6 +54,8 @@ public class Hand : MonoBehaviour
             {
                 if (_collider.gameObject.TryGetComponent(out Weapons weapon) && weapon.m_isWield)
                     return;
+                else if (_collider.gameObject.TryGetComponent(out Seringue_Object seringue) && seringue.is_wield)
+                    return;
 
                 _currentObject = pickUp;
 
